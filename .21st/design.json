@@ -1,0 +1,29 @@
+{
+  "name": "Cyber-Arcana // Silicon Oracle",
+  "direction": "Dark Cosmic x Computer Engineering",
+  "palette": {
+    "void": "#05050A",
+    "panel": "#0B0C14",
+    "pcbGold": "#F59E0B",
+    "royalGold": "#D4AF37",
+    "nebulaPurple": "#8B5CF6",
+    "cyberCyan": "#06B6D4"
+  },
+  "typography": {
+    "display": "Cinzel",
+    "mono": "JetBrains Mono",
+    "body": "Inter"
+  },
+  "components21st": [
+    { "group": "Ambient Background", "id": 924, "slug": "manuarora700/shooting-stars", "path": "src/components/ui/cosmic-circuit-bg.tsx" },
+    { "group": "HUD & Spread Selector", "id": 1115, "slug": "ibelick/animated-tabs", "path": "src/components/ui/animated-spread-tabs.tsx" },
+    { "group": "3D Flip & Holographic Wafer Card", "id": 1493, "slug": "manuarora700/glare-card", "path": "src/components/ui/holo-tarot-card.tsx" },
+    { "group": "AI Synthesis & Streaming Text", "id": 18600, "slug": "cnippet-dev/text-generate-effect", "path": "src/components/ui/streaming-oracle-text.tsx" },
+    { "group": "Interactive AI Oracle Chat", "id": 1887, "slug": "haydenbleasel/ai-input", "path": "src/components/ui/oracle-chat-terminal.tsx" }
+  ],
+  "decisions": [
+    "3-State FSM on single unified route (/ and /draw-cards)",
+    "78-Card full Rider-Waite-Smith deck mapped to Hex registers 0x00..0x4D with Cyber Engineering metaphors",
+    "Powered by Google Gemini 3.8 Flash (models/gemini-3.8-flash) with automatic multi-model & deterministic Cyber-Arcana fallback"
+  ]
+}

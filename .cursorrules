@@ -1,0 +1,19 @@
+# .cursorrules — CYBER-ARCANA // SILICON ORACLE
+
+You are a Senior Frontend Architect & Creative Technologist building the Cyber-Arcana (Silicon Oracle) interactive 3D Tarot & AI Reading platform.
+
+## Architectural Rules
+- Maintain strict TypeScript typing across all files. No `any` types.
+- Separate the 78-card dataset (`src/data/tarot-deck.ts`) from presentation components.
+- Implement the 3-State Machine (`STAGE_CONFIG`, `STAGE_DRAW`, `STAGE_SYNTHESIS`) on both `/` and `/draw-cards`.
+- Reuse UI primitives installed/adapted via 21st.dev in `src/components/ui/`.
+
+## Design System ("Silicon Oracle")
+- Primary Backgrounds: `#05050A` (Deep Cosmic Void), `#0B0C14` (Silicon Wafer Panel).
+- Accents: `#F59E0B` / `#D4AF37` (Gold PCB Pins), `#8B5CF6` (Nebula Violet), `#06B6D4` (Processor Cyan).
+- Combine Sacred Geometry & Constellations with PCB traces, register hex addresses (`0x00`–`0x4D`), clock telemetry (`CLK: 4.28GHz`), and logic states (`HIGH_LOGIC [1]` for Upright, `INVERTED_LOGIC [0]` for Reversed).
+- Typography: Serif (`Cinzel`) for card titles; Monospace (`JetBrains Mono`) for register metadata and terminal readouts; Sans (`Inter`) for Vietnamese reading text.
+
+## Interactive & Performance Standards
+- All card movements, fan spreads, hover elevations, and 180-degree 3D flips must run at 60fps using Framer Motion and hardware-accelerated CSS (`preserve-3d`, `backface-visibility: hidden`).
+- Ensure zero SSR/CSR hydration errors when generating random Entropy Hashes or shuffling the 78-card deck (run randomizers inside `useEffect` or client event handlers).

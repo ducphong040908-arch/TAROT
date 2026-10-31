@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYBER-ARCANA // Rút Bài Tarot 78 Lá 3D & Luận Giải AI Gemini 3.8 Flash</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Lexend', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      background-color: #05050A;
+      color: #F8FAFC;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display { font-family: var(--font-display); }
+    .font-mono-code { font-family: var(--font-mono); }
+    .pcb-grid {
+      background-image:
+        linear-gradient(to right, rgba(6, 182, 212, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 158, 11, 0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    .card-3d-wrap { perspective: 1200px; }
+    .card-3d-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card-3d-inner.flipped { transform: rotateY(180deg); }
+    .card-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-front { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="min-h-screen relative pcb-grid selection:bg-amber-500/30 selection:text-amber-200">
+  <!-- Header HUD -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#05050A]/95 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 sm:py-3">
+      {/* Left: 30 Years FET Brand Logo */}
+      <div class="flex items-center shrink-0">
+        <a href="index.html" class="flex items-center">
+          <img
+            src="image_3.png"
+            alt="Logo 30 Năm FET UET (1996 - 2026) - Pioneering Creative"
+            class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_0_24px_rgba(245,158,11,0.25)]"
+          />
+        </a>
+      </div>
+
+      {/* Center: Stepper 1, 2, 3 (CHỌN BÀI -> RÚT BÀI -> PHÂN TÍCH CHUYÊN SÂU) */}
+      <div class="flex items-center justify-center flex-1 overflow-x-auto py-1">
+        <div class="flex items-center gap-1.5 sm:gap-2 rounded-2xl border border-slate-800/90 bg-[#0A0B14] p-1.5 text-xs font-semibold shadow-inner shrink-0">
+          <span class="rounded-xl px-3.5 py-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/50 font-bold whitespace-nowrap">
+            1. CHỌN BÀI
+          </span>
+          <span class="text-slate-600 px-0.5">→</span>
+          <span class="rounded-xl px-3.5 py-1.5 text-cyan-300 font-bold whitespace-nowrap">
+            2. RÚT BÀI
+          </span>
+          <span class="text-slate-600 px-0.5">→</span>
+          <span class="rounded-xl px-3.5 py-1.5 text-slate-400 font-medium whitespace-nowrap">
+            3. PHÂN TÍCH CHUYÊN SÂU
+          </span>
+        </div>
+      </div>
+
+      {/* Right: 78 Lá Bài Button */}
+      <div class="flex items-center justify-end shrink-0">
+        <button onclick="openCodexModal()" class="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-2 text-xs sm:text-sm font-semibold text-amber-200 transition-all hover:border-amber-400 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.15)] whitespace-nowrap">
+          📖 <span>78 LÁ BÀI</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-6 space-y-8">
+    <!-- STATE 1: QUERY & SPREAD CONFIGURATION -->
+    <section class="rounded-2xl border border-amber-500/30 bg-[#0B0C14]/90 p-5 shadow-xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <h2 class="font-display text-base font-bold text-amber-200">
+          BƯỚC 1: CHỌN SỐ LÁ &amp; NHẬP CÂU HỎI
+        </h2>
+        <div class="flex flex-wrap gap-1.5" id="spread-tabs">
+          <button onclick="setSpread(1)" data-count="1" class="spread-btn rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 text-xs text-slate-300">1 Lá</button>
+          <button onclick="setSpread(3)" data-count="3" class="spread-btn rounded-lg border border-amber-400 bg-amber-500/20 px-3 py-1 text-xs text-amber-200 font-semibold">3 Lá</button>
+          <button onclick="setSpread(5)" data-count="5" class="spread-btn rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 text-xs text-slate-300">5 Lá</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div class="md:col-span-8">
+          <input id="question-input" type="text" placeholder="Nhập câu hỏi bạn muốn hỏi vũ trụ & Silicon Oracle (VD: Định hướng công việc và tình cảm của tôi trong 3 tháng tới?)..." class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2.5 text-sm text-slate-100 focus:border-amber-400 focus:outline-none" />
+        </div>
+        <div class="md:col-span-4 flex gap-2">
+          <button onclick="shuffleDeck()" class="flex-1 rounded-xl border border-amber-400/50 bg-amber-500/20 px-3 py-2 font-sans text-xs font-bold text-amber-200 hover:bg-amber-500/30">
+            🔀 Xào Bài
+          </button>
+          <button onclick="cutDeck()" class="flex-1 rounded-xl border border-cyan-400/50 bg-cyan-500/20 px-3 py-2 font-sans text-xs font-bold text-cyan-200 hover:bg-cyan-500/30">
+            ✂️ Cắt Bài
+          </button>
+          <button onclick="autoDrawAll()" class="flex-1 rounded-xl border border-emerald-400/50 bg-emerald-500/20 px-3 py-2 font-sans text-xs font-bold text-emerald-200 hover:bg-emerald-500/30">
+            ⚡ Ngẫu Nhiên
+          </button>
+          <button onclick="resetTable()" class="rounded-xl border border-rose-500/40 bg-rose-500/10 px-3 py-2 font-sans text-xs text-rose-300 hover:bg-rose-500/20" title="Rút lại">
+            ↺
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 2: 78-CARD INTERACTIVE DECK & 3D TABLE -->
+    <section class="rounded-2xl border border-cyan-500/25 bg-[#0B0C14]/90 p-5 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="font-sans text-xs text-cyan-300">
+          BƯỚC 2: KHAY BÀI 78 LÁ (CHỌN ĐỦ <span id="req-count" class="text-amber-300 font-bold">3</span> LÁ — ĐÃ CHỌN: <span id="cur-count" class="text-emerald-300 font-bold">0</span>)
+        </div>
+        <button id="flip-all-btn" onclick="flipAllSlots()" class="hidden rounded-lg border border-amber-400 bg-amber-500/25 px-3 py-1 font-sans text-xs font-bold text-amber-200 animate-pulse">
+          ✨ LẬT TẤT CẢ ({req-count} LÁ)
+        </button>
+      </div>
+
+      <!-- 78-Card Horizontal Fan Ribbon -->
+      <div id="deck-ribbon" class="flex gap-1.5 overflow-x-auto pb-3 pt-2 scrollbar-thin"></div>
+
+      <!-- Active 3D Slots Table -->
+      <div id="slots-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 justify-items-center"></div>
+    </section>
+
+    <!-- STATE 3: AI ORACLE SYNTHESIS & CHAT -->
+    <section id="synthesis-section" class="hidden space-y-6">
+      <div class="rounded-2xl border border-amber-500/35 bg-[#080912]/95 p-6 space-y-4">
+        <h3 class="font-display text-lg font-bold text-amber-200">
+          BƯỚC 3: BÁO CÁO GIẢI MÃ TỪNG LÁ &amp; TỔNG HỢP LUẬN GIẢI AI
+        </h3>
+        <div id="breakdown-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        <div id="ai-synthesis-box" class="rounded-xl border border-cyan-500/30 bg-slate-950/90 p-4 font-sans text-sm text-slate-200 leading-relaxed whitespace-pre-line"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 78-Card Codex Modal -->
+  <div id="codex-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 backdrop-blur-md">
+    <div class="flex h-[82vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-amber-500/40 bg-[#090A14]">
+      <div class="flex items-center justify-between border-b border-slate-800 px-5 py-3">
+        <h3 class="font-serif-title text-base font-bold text-amber-200">THƯ VIỆN 78 LÁ TAROT RIDER-WAITE-SMITH (0x00 – 0x4D)</h3>
+        <button onclick="closeCodexModal()" class="rounded-lg border border-slate-700 px-2.5 py-1 font-mono-code text-xs text-slate-300 hover:border-amber-400">✖ ĐÓNG</button>
+      </div>
+      <div id="codex-grid" class="grid flex-1 grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 overflow-y-auto p-4"></div>
+    </div>
+  </div>
+
+  <script>
+    const MAJOR_MAP = {
+      0: ["The Fool", "Kẻ Khờ — Khởi Nguyên Tự Do", "Cold Boot // Uninitialized Pointer", "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg"],
+      1: ["The Magician", "Nhà Ảo Thuật — Kiến Trúc Sư Thực Thi", "Full-Stack Compiler // Resource Multiplexer", "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg"],
+      2: ["The High Priestess", "Nữ Tư Tế — Kho Dữ Liệu Tiềm Thức", "Encrypted Kernel Vault // Deep Intuition", "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg"],
+      3: ["The Empress", "Nữ Hoàng — Nguồn Sinh Lực Trù Phú", "Generative Neural Fabric // Abundance", "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg"],
+      4: ["The Emperor", "Hoàng Đế — Kiến Trúc Vững Chãi", "Root Hypervisor // Governance", "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg"],
+      5: ["The Hierophant", "Giáo Hoàng — Giao Thức Chuẩn Mực", "IEEE Standard Protocol // Mentor", "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg"],
+      6: ["The Lovers", "Đôi Tình Nhân — Liên Kết Lượng Tử", "Quantum Entanglement // Alignment", "https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_06_Lovers.jpg"],
+      7: ["The Chariot", "Cỗ Xe — Xung Nhịp Bứt Phá", "DMA High-Speed Vector // Momentum", "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg"],
+      8: ["Strength", "Sức Mạnh — Nội Lực Bền Bỉ", "Fault-Tolerant Core // Equilibrium", "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg"],
+      9: ["The Hermit", "Ẩn Sĩ — Tĩnh Tâm Debug", "Air-Gapped Sandbox // Introspection", "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg"],
+      10: ["Wheel of Fortune", "Bánh Xe Số Phận — Chu Kỳ Xoay Chuyển", "Quantum RNG Scheduler // Cycle Shift", "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg"],
+      11: ["Justice", "Công Lý — Cân Bằng Checksum", "Cryptographic Checksum // Parity", "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg"],
+      12: ["The Hanged Man", "Người Treo — Đảo Góc Nhìn Tọa Độ", "Async Await // Perspective Inversion", "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg"],
+      13: ["Death", "Tử Thần — Tái Cấu Trúc & Khởi Sinh", "Garbage Collection // Reboot", "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg"],
+      14: ["Temperance", "Tiết Độ — Điều Hòa Xung Nhịp", "Adaptive Load Balancer // Harmony", "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg"],
+      15: ["The Devil", "Ác Quỷ — Vòng Lặp Ràng Buộc", "Infinite Dependency Loop // Shadow", "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg"],
+      16: ["The Tower", "Tòa Tháp — Giải Phóng Cấu Trúc Ảo", "Kernel Panic // False Collapse", "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg"],
+      17: ["The Star", "Ngôi Sao — Tín Hiệu Bắc Đẩu", "Deep-Space Beacon // Pure Recovery", "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg"],
+      18: ["The Moon", "Mặt Trăng — Miền Nhiễu Sóng", "Subconscious Fog // Signal Noise", "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg"],
+      19: ["The Sun", "Mặt Trời — Quang Phổ Rực Rỡ", "Photonic Superconductor // Radiant Joy", "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg"],
+      20: ["Judgement", "Phán Quyết — Tiếng Gọi Thức Tỉnh", "Global Wakeup Interrupt // Audit", "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg"],
+      21: ["The World", "Thế Giới — Hợp Nhất Mạng Lưới", "Global Mesh Convergence // Complete", "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg"]
+    };
+
+    const SUITS = [
+      { key: "Wands", vi: "Gậy (Lửa)", domain: "PLASMA_EXEC" },
+      { key: "Cups", vi: "Cốc (Nước)", domain: "EMOTION_STREAM" },
+      { key: "Swords", vi: "Kiếm (Khí)", domain: "LOGIC_GATE" },
+      { key: "Pents", nameSuit: "Pentacles", vi: "Tiền (Đất)", domain: "SILICON_ASSET" }
+    ];
+    const RANKS = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"];
+
+    const DECK = [];
+    for (let i = 0; i <= 21; i++) {
+      const [name, viName, cyber, image] = MAJOR_MAP[i];
+      DECK.push({
+        id: i,
+        hex: "0x" + i.toString(16).toUpperCase().padStart(2, "0"),
+        name,
+        viName,
+        cyber,
+        image
+      });
+    }
+    let cid = 22;
+    for (const s of SUITS) {
+      for (let r = 0; r < 14; r++) {
+        const numStr = String(r + 1).padStart(2, "0");
+        const suitLabel = s.nameSuit || s.key;
+        DECK.push({
+          id: cid,
+          hex: "0x" + cid.toString(16).toUpperCase().padStart(2, "0"),
+          name: `${RANKS[r]} of ${suitLabel}`,
+          viName: `${RANKS[r]} of ${suitLabel} — ${s.vi}`,
+          cyber: `${s.domain} // REG_${numStr}`,
+          image: `https://commons.wikimedia.org/wiki/Special:FilePath/${s.key}${numStr}.jpg`
+        });
+        cid++;
+      }
+    }
+
+    let spreadCount = 3;
+    let workingDeck = [...DECK];
+    let drawnSlots = [];
+
+    const SLOT_LABELS = {
+      1: ["Lá 1"],
+      3: ["Lá 1", "Lá 2", "Lá 3"],
+      5: ["Lá 1", "Lá 2", "Lá 3", "Lá 4", "Lá 5"]
+    };
+
+    function setSpread(count) {
+      spreadCount = count;
+      document.querySelectorAll(".spread-btn").forEach(b => {
+        const active = Number(b.dataset.count) === count;
+        b.className = active
+          ? "spread-btn rounded-lg border border-amber-400 bg-amber-500/20 px-3 py-1 font-mono-code text-xs text-amber-200"
+          : "spread-btn rounded-lg border border-slate-800 bg-slate-900 px-3 py-1 font-mono-code text-xs text-slate-300";
+      });
+      resetTable();
+    }
+
+    function shuffleDeck() {
+      const ribbon = document.getElementById("deck-ribbon");
+      if (ribbon) {
+        ribbon.style.transition = "transform 0.4s ease";
+        ribbon.style.transform = "scale(0.94) translateY(-10px)";
+        setTimeout(() => {
+          for (let i = workingDeck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [workingDeck[i], workingDeck[j]] = [workingDeck[j], workingDeck[i]];
+          }
+          ribbon.style.transform = "scale(1) translateY(0)";
+          resetTable();
+        }, 400);
+      } else {
+        for (let i = workingDeck.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [workingDeck[i], workingDeck[j]] = [workingDeck[j], workingDeck[i]];
+        }
+        resetTable();
+      }
+    }
+
+    function cutDeck() {
+      if (workingDeck.length < 4) return;
+      const pivot = Math.floor(workingDeck.length * 0.4) + Math.floor(Math.random() * 10);
+      const topHalf = workingDeck.slice(0, pivot);
+      const bottomHalf = workingDeck.slice(pivot);
+      workingDeck = [...bottomHalf, ...topHalf];
+      const ribbon = document.getElementById("deck-ribbon");
+      if (ribbon) {
+        ribbon.style.transition = "transform 0.3s ease";
+        ribbon.style.transform = "translateX(20px)";
+        setTimeout(() => {
+          ribbon.style.transform = "translateX(0)";
+          renderRibbon();
+        }, 300);
+      } else {
+        renderRibbon();
+      }
+    }
+
+    function resetTable() {
+      drawnSlots = [];
+      document.getElementById("req-count").textContent = spreadCount;
+      document.getElementById("cur-count").textContent = 0;
+      document.getElementById("flip-all-btn").classList.add("hidden");
+      document.getElementById("synthesis-section").classList.add("hidden");
+      renderRibbon();
+      renderSlots();
+    }
+
+    function renderRibbon() {
+      const ribbon = document.getElementById("deck-ribbon");
+      const drawnIds = new Set(drawnSlots.map(s => s.card.id));
+      ribbon.innerHTML = workingDeck.map((c) => {
+        const picked = drawnIds.has(c.id);
+        return `
+          <button onclick="pickCard(${c.id})" ${picked ? "disabled" : ""}
+            class="group relative h-28 w-16 shrink-0 rounded-lg border transition-all ${
+              picked
+                ? "opacity-20 border-slate-800 cursor-not-allowed"
+                : "border-amber-500/40 bg-[#080914] hover:-translate-y-2 hover:border-cyan-400"
+            } flex flex-col items-center justify-between p-1.5">
+            <span class="font-mono-code text-[8px] text-amber-300/80">${c.hex}</span>
+            <div class="h-8 w-8 rounded-full border border-dashed border-amber-400/40 flex items-center justify-center font-mono-code text-[8px] text-cyan-300">✦</div>
+            <span class="font-mono-code text-[7px] text-slate-400">RWS</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function pickCard(cardId) {
+      if (drawnSlots.length >= spreadCount) return;
+      const card = workingDeck.find(c => c.id === cardId);
+      if (!card || drawnSlots.some(s => s.card.id === cardId)) return;
+      drawnSlots.push({
+        card,
+        isReversed: Math.random() < 0.28,
+        isFlipped: false
+      });
+      document.getElementById("cur-count").textContent = drawnSlots.length;
+      if (drawnSlots.length === spreadCount) {
+        document.getElementById("flip-all-btn").classList.remove("hidden");
+      }
+      renderRibbon();
+      renderSlots();
+    }
+
+    function autoDrawAll() {
+      resetTable();
+      const pool = [...workingDeck].sort(() => Math.random() - 0.5).slice(0, spreadCount);
+      drawnSlots = pool.map(card => ({
+        card,
+        isReversed: Math.random() < 0.28,
+        isFlipped: true
+      }));
+      document.getElementById("cur-count").textContent = drawnSlots.length;
+      renderRibbon();
+      renderSlots();
+      renderSynthesis();
+    }
+
+    function flipSlot(idx) {
+      if (!drawnSlots[idx]) return;
+      drawnSlots[idx].isFlipped = true;
+      renderSlots();
+      if (drawnSlots.length === spreadCount && drawnSlots.every(s => s.isFlipped)) {
+        renderSynthesis();
+      }
+    }
+
+    function flipAllSlots() {
+      drawnSlots.forEach(s => (s.isFlipped = true));
+      renderSlots();
+      renderSynthesis();
+    }
+
+    function renderSlots() {
+      const grid = document.getElementById("slots-grid");
+      grid.className = `grid grid-cols-1 sm:grid-cols-${Math.min(spreadCount, 3)} lg:grid-cols-${spreadCount} gap-6 pt-4 justify-items-center`;
+      const labels = SLOT_LABELS[spreadCount] || [];
+
+      grid.innerHTML = Array.from({ length: spreadCount }, (_, i) => {
+        const slot = drawnSlots[i];
+        const label = labels[i] || `SLOT #${i + 1}`;
+        if (!slot) {
+          return `
+            <div class="flex flex-col items-center gap-2">
+              <span class="font-mono-code text-[10px] text-cyan-400">${label}</span>
+              <div class="flex h-96 w-56 items-center justify-center rounded-2xl border-2 border-dashed border-slate-800 bg-slate-950/50 p-4 text-center font-mono-code text-xs text-slate-500">
+                [CHỌN LÁ BÀI TỪ KHAY 78 LÁ PHÍA TRÊN]
+              </div>
+            </div>
+          `;
+        }
+        const { card, isReversed, isFlipped } = slot;
+        return `
+          <div class="flex flex-col items-center gap-2">
+            <span class="font-mono-code text-[10px] text-cyan-400">${label}</span>
+            <div class="card-3d-wrap h-96 w-56 cursor-pointer" onclick="flipSlot(${i})">
+              <div class="card-3d-inner ${isFlipped ? "flipped" : ""} relative h-full w-full rounded-2xl">
+                <!-- Back -->
+                <div class="card-face absolute inset-0 rounded-2xl border border-amber-500/40 bg-[#080914] p-3 flex flex-col items-center justify-between shadow-lg">
+                  <span class="font-mono-code text-[9px] text-amber-400">SILICON // ORACLE</span>
+                  <div class="h-24 w-24 rounded-full border border-dashed border-amber-400/50 flex items-center justify-center font-mono-code text-sm text-cyan-300">${card.hex}</div>
+                  <span class="rounded bg-amber-500/20 px-2 py-1 font-mono-code text-[9px] font-bold text-amber-200 animate-pulse">[CLICK ĐỂ LẬT MỞ]</span>
+                </div>
+                <!-- Front -->
+                <div class="card-face card-front absolute inset-0 rounded-2xl border ${isReversed ? "border-violet-500/70" : "border-amber-400/70"} bg-[#080914] p-2.5 flex flex-col justify-between shadow-[0_0_30px_rgba(245,158,11,0.25)]">
+                  <div class="flex justify-between font-mono-code text-[9px]">
+                    <span class="text-amber-300 font-bold">${card.hex}</span>
+                    <span class="${isReversed ? "text-violet-300" : "text-emerald-300"} font-bold">${isReversed ? "BIT:0 [NGƯỢC]" : "BIT:1 [XUÔI]"}</span>
+                  </div>
+                  <div class="my-1 flex-1 overflow-hidden rounded-xl border border-amber-500/30 bg-slate-950">
+                    <img src="${card.image}" alt="${card.name}" class="h-full w-full object-contain p-0.5 ${isReversed ? "rotate-180" : ""}" />
+                  </div>
+                  <div class="text-center pt-1">
+                    <div class="font-serif-title text-sm font-bold text-amber-100 truncate">${card.name}</div>
+                    <div class="text-xs text-cyan-300 truncate">${card.viName}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderSynthesis() {
+      const sec = document.getElementById("synthesis-section");
+      sec.classList.remove("hidden");
+      const labels = SLOT_LABELS[spreadCount] || [];
+      const breakdown = document.getElementById("breakdown-cards");
+      breakdown.innerHTML = drawnSlots.map((s, i) => `
+        <div class="rounded-xl border border-slate-800 bg-slate-950/90 p-3.5 flex gap-3">
+          <img src="${s.card.image}" alt="${s.card.name}" class="h-24 w-16 rounded-lg object-cover border border-amber-500/40 ${s.isReversed ? "rotate-180" : ""}" />
+          <div class="space-y-1 min-w-0">
+            <div class="font-mono-code text-[10px] text-cyan-400">${labels[i] || `LÁ #${i + 1}`}</div>
+            <div class="font-serif-title text-sm font-bold text-amber-200 truncate">${s.card.hex} — ${s.card.name}</div>
+            <div class="text-xs text-slate-300">${s.card.viName}</div>
+            <div class="font-mono-code text-[10px] ${s.isReversed ? "text-violet-300" : "text-emerald-300"}">
+              Trạng thái: ${s.isReversed ? "BIT:0 // Ngược (Cần tháo gỡ nút thắt nội tại)" : "BIT:1 // Xuôi (Luồng năng lượng thuận lợi)"}
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      const q = document.getElementById("question-input").value.trim() || "Truy vấn năng lượng tổng quát";
+      const summaryLines = drawnSlots.map((s, i) =>
+        `• [${labels[i] || `Vị trí #${i + 1}`}]: ${s.card.name} (${s.card.viName}) — Chiều ${s.isReversed ? "NGƯỢC [BIT:0]" : "XUÔI [BIT:1]"} (${s.card.cyber}).`
+      ).join("\n");
+
+      document.getElementById("ai-synthesis-box").textContent =
+        `⚡ ORACLE KERNEL SYNTHESIS // CÂU HỎI: "${q}"\n\n` +
+        `${summaryLines}\n\n` +
+        `→ TỔNG HỢP HỆ THỐNG: Sự kết hợp giữa ${drawnSlots.map(s => s.card.name).join(" + ")} cho thấy hệ thống năng lượng của bạn đang chuyển pha rõ rệt. Hãy tập trung vào các thanh ghi mang trạng thái BIT:1 để làm đòn bẩy chính, đồng thời điều chỉnh lại nhịp độ ở các vị trí BIT:0 (nếu có). Để chat trực tiếp thời gian thực với AI Gemini 3.8 Flash, hãy mở http://localhost:3000/draw-cards.`;
+    }
+
+    function openCodexModal() {
+      const modal = document.getElementById("codex-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      const grid = document.getElementById("codex-grid");
+      if (!grid.innerHTML) {
+        grid.innerHTML = DECK.map(c => `
+          <div class="rounded-xl border border-slate-800 bg-slate-950 p-2 flex flex-col">
+            <div class="font-mono-code text-[9px] text-amber-300 mb-1">${c.hex}</div>
+            <div class="aspect-[2/3] w-full overflow-hidden rounded-lg bg-slate-900">
+              <img src="${c.image}" alt="${c.name}" loading="lazy" class="h-full w-full object-cover" />
+            </div>
+            <div class="mt-1.5 font-serif-title text-[11px] font-bold text-slate-100 truncate">${c.name}</div>
+            <div class="text-[10px] text-cyan-300 truncate">${c.viName}</div>
+          </div>
+        `).join("");
+      }
+    }
+
+    function closeCodexModal() {
+      const modal = document.getElementById("codex-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    shuffleDeck();
+  </script>
+</body>
+</html>

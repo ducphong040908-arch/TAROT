@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYBER-ARCANA // Silicon Oracle — Trang Chủ & Khởi Tạo Truy Vấn Tarot 3D</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Lexend', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      background-color: #05050A;
+      color: #F8FAFC;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display { font-family: var(--font-display); }
+    .font-mono-code { font-family: var(--font-mono); }
+    .pcb-grid {
+      background-image:
+        linear-gradient(to right, rgba(6, 182, 212, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 158, 11, 0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+    .card-3d-wrap { perspective: 1200px; }
+    .card-3d-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card-3d-inner.flipped { transform: rotateY(180deg); }
+    .card-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-front { transform: rotateY(180deg); }
+  </style>
+</head>
+<body class="min-h-screen relative pcb-grid selection:bg-amber-500/30 selection:text-amber-200">
+  <!-- Ambient Cosmic Glows -->
+  <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div class="absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-amber-500/10 blur-[130px]"></div>
+    <div class="absolute top-1/3 -right-24 h-96 w-96 rounded-full bg-violet-600/15 blur-[140px]"></div>
+    <div class="absolute -bottom-32 left-1/3 h-96 w-96 rounded-full bg-cyan-500/10 blur-[130px]"></div>
+  </div>
+
+  <!-- Top Telemetry Header -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#05050A]/95 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 sm:py-3">
+      {/* Left: 30 Years FET Brand Logo */}
+      <div class="flex items-center shrink-0">
+        <a href="index.html" class="flex items-center">
+          <img
+            src="image_3.png"
+            alt="Logo 30 Năm FET UET (1996 - 2026) - Pioneering Creative"
+            class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_0_24px_rgba(245,158,11,0.25)]"
+          />
+        </a>
+      </div>
+
+      {/* Right: 78 Lá Bài & Bắt Đầu Rút Bài */}
+      <div class="flex items-center gap-3">
+        <a href="draw-cards.html" class="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/35 bg-amber-500/10 px-3.5 py-2 text-xs sm:text-sm font-semibold text-amber-200 transition-all hover:border-amber-400 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+          📖 <span>78 LÁ BÀI</span>
+        </a>
+        <a href="draw-cards.html" class="rounded-xl border border-amber-400/60 bg-amber-500/25 px-4 py-2 text-xs sm:text-sm font-semibold text-amber-200 hover:bg-amber-500/35 transition shadow-[0_0_20px_rgba(245,158,11,0.25)]">
+          ✨ Bắt Đầu Rút Bài →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="relative z-10 mx-auto max-w-7xl px-4 pt-6 pb-12 space-y-8">
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center rounded-3xl border border-amber-500/30 bg-[#0B0C14]/90 p-6 md:p-8 shadow-[0_0_70px_rgba(0,0,0,0.85)]">
+      <div class="lg:col-span-7 space-y-2">
+        <h1 class="font-display text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold tracking-normal select-none">
+          <span class="inline-block py-0.5 bg-gradient-to-r from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_2px_16px_rgba(245,158,11,0.22)]">
+            LẮNG NGHE VŨ TRỤ, HIỂU RÕ CHÍNH MÌNH
+          </span>
+        </h1>
+        <p class="font-sans text-xs sm:text-sm text-amber-200/80 tracking-wider font-medium">
+          Khám phá bản thân qua lá bài tarot
+        </p>
+
+        <!-- Quick Topic Launchers -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <a href="draw-cards.html?topic=love" class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-4 hover:border-amber-400/60 transition flex items-start justify-between">
+            <div>
+              <div class="font-sans text-xs text-amber-400 font-semibold">TÌNH YÊU &amp; NHÂN DUYÊN</div>
+              <div class="font-serif-title text-base font-bold text-slate-100 group-hover:text-amber-200">❤️ Tình Yêu &amp; Kết Nối</div>
+              <p class="text-xs text-slate-400 mt-1">Giải mã cảm xúc, nhân duyên &amp; độ đồng bộ tần số.</p>
+            </div>
+            <span class="text-amber-400 group-hover:translate-x-1 transition">→</span>
+          </a>
+          <a href="draw-cards.html?topic=career" class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-4 hover:border-cyan-400/60 transition flex items-start justify-between">
+            <div>
+              <div class="font-sans text-xs text-cyan-400 font-semibold">CÔNG VIỆC &amp; TÀI CHÍNH</div>
+              <div class="font-serif-title text-base font-bold text-slate-100 group-hover:text-cyan-200">💻 Sự Nghiệp &amp; Tài Chính</div>
+              <p class="text-xs text-slate-400 mt-1">Phân tích sự nghiệp, dòng tiền &amp; cơ hội phát triển.</p>
+            </div>
+            <span class="text-cyan-400 group-hover:translate-x-1 transition">→</span>
+          </a>
+          <a href="draw-cards.html?topic=self" class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-4 hover:border-violet-400/60 transition flex items-start justify-between">
+            <div>
+              <div class="font-sans text-xs text-violet-400 font-semibold">PHÁT TRIỂN BẢN THÂN</div>
+              <div class="font-serif-title text-base font-bold text-slate-100 group-hover:text-violet-200">✨ Bản Thân &amp; Tiềm Thức</div>
+              <p class="text-xs text-slate-400 mt-1">Khám phá nội tâm &amp; tái tạo năng lượng tích cực.</p>
+            </div>
+            <span class="text-violet-400 group-hover:translate-x-1 transition">→</span>
+          </a>
+          <a href="draw-cards.html?topic=decision" class="group rounded-2xl border border-slate-800 bg-slate-950/75 p-4 hover:border-emerald-400/60 transition flex items-start justify-between">
+            <div>
+              <div class="font-sans text-xs text-emerald-400 font-semibold">LỰA CHỌN &amp; NGÃ RẼ</div>
+              <div class="font-serif-title text-base font-bold text-slate-100 group-hover:text-emerald-200">🔀 Định Hướng Quyết Định</div>
+              <p class="text-xs text-slate-400 mt-1">Gỡ rối suy nghĩ trước các lựa chọn quan trọng.</p>
+            </div>
+            <span class="text-emerald-400 group-hover:translate-x-1 transition">→</span>
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="draw-cards.html" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-3 font-mono-code text-xs font-bold uppercase tracking-wider text-slate-950 shadow-[0_0_30px_rgba(245,158,11,0.4)] hover:brightness-110 transition">
+            ⚡ Bắt Đầu Trải Bài 78 Lá Ngay (draw-cards.html)
+          </a>
+          <a href="http://localhost:3000/draw-cards" target="_blank" class="inline-flex items-center gap-2 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-5 py-3 font-mono-code text-xs font-semibold text-cyan-300 hover:bg-cyan-500/20 transition">
+            🌐 Mở Bản Next.js Live Server (:3000)
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive 3D Showcase Cards (Click to Flip) -->
+      <div class="lg:col-span-5 flex flex-col items-center">
+        <div class="mb-3 font-mono-code text-[11px] text-amber-300/90">
+          [DEMO TƯƠNG TÁC: CLICK VÀO LÁ BÀI BÊN DƯỚI ĐỂ LẬT 3D]
+        </div>
+        <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-md">
+          <!-- Card 1: The Fool -->
+          <div class="card-3d-wrap h-64 cursor-pointer" onclick="this.querySelector('.card-3d-inner').classList.toggle('flipped')">
+            <div class="card-3d-inner flipped relative h-full w-full rounded-2xl">
+              <div class="card-face absolute inset-0 rounded-2xl border border-amber-500/40 bg-[#080914] p-2 flex flex-col items-center justify-between">
+                <span class="font-mono-code text-[8px] text-amber-400">SILICON // ORACLE</span>
+                <div class="h-20 w-20 rounded-full border border-dashed border-amber-400/50 flex items-center justify-center font-mono-code text-xs text-cyan-300">0x00</div>
+                <span class="font-mono-code text-[8px] text-cyan-400">CLICK TO FLIP</span>
+              </div>
+              <div class="card-face card-front absolute inset-0 rounded-2xl border border-amber-400/70 bg-[#080914] p-2 flex flex-col justify-between shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                <div class="flex justify-between font-mono-code text-[9px]">
+                  <span class="text-amber-300">0x00</span>
+                  <span class="text-emerald-400">BIT:1</span>
+                </div>
+                <div class="my-1 flex-1 overflow-hidden rounded-lg border border-amber-500/30">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg" alt="The Fool" class="h-full w-full object-cover" />
+                </div>
+                <div class="text-center">
+                  <div class="font-serif-title text-[11px] font-bold text-amber-100">The Fool</div>
+                  <div class="font-mono-code text-[8px] text-cyan-300 truncate">Cold Boot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: The Magician -->
+          <div class="card-3d-wrap h-64 cursor-pointer" onclick="this.querySelector('.card-3d-inner').classList.toggle('flipped')">
+            <div class="card-3d-inner flipped relative h-full w-full rounded-2xl">
+              <div class="card-face absolute inset-0 rounded-2xl border border-amber-500/40 bg-[#080914] p-2 flex flex-col items-center justify-between">
+                <span class="font-mono-code text-[8px] text-amber-400">SILICON // ORACLE</span>
+                <div class="h-20 w-20 rounded-full border border-dashed border-amber-400/50 flex items-center justify-center font-mono-code text-xs text-cyan-300">0x01</div>
+                <span class="font-mono-code text-[8px] text-cyan-400">CLICK TO FLIP</span>
+              </div>
+              <div class="card-face card-front absolute inset-0 rounded-2xl border border-amber-400/70 bg-[#080914] p-2 flex flex-col justify-between shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                <div class="flex justify-between font-mono-code text-[9px]">
+                  <span class="text-amber-300">0x01</span>
+                  <span class="text-emerald-400">BIT:1</span>
+                </div>
+                <div class="my-1 flex-1 overflow-hidden rounded-lg border border-amber-500/30">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" alt="The Magician" class="h-full w-full object-cover" />
+                </div>
+                <div class="text-center">
+                  <div class="font-serif-title text-[11px] font-bold text-amber-100">The Magician</div>
+                  <div class="font-mono-code text-[8px] text-cyan-300 truncate">Full-Stack Compiler</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Wheel of Fortune -->
+          <div class="card-3d-wrap h-64 cursor-pointer" onclick="this.querySelector('.card-3d-inner').classList.toggle('flipped')">
+            <div class="card-3d-inner flipped relative h-full w-full rounded-2xl">
+              <div class="card-face absolute inset-0 rounded-2xl border border-amber-500/40 bg-[#080914] p-2 flex flex-col items-center justify-between">
+                <span class="font-mono-code text-[8px] text-amber-400">SILICON // ORACLE</span>
+                <div class="h-20 w-20 rounded-full border border-dashed border-amber-400/50 flex items-center justify-center font-mono-code text-xs text-cyan-300">0x0A</div>
+                <span class="font-mono-code text-[8px] text-cyan-400">CLICK TO FLIP</span>
+              </div>
+              <div class="card-face card-front absolute inset-0 rounded-2xl border border-amber-400/70 bg-[#080914] p-2 flex flex-col justify-between shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                <div class="flex justify-between font-mono-code text-[9px]">
+                  <span class="text-amber-300">0x0A</span>
+                  <span class="text-emerald-400">BIT:1</span>
+                </div>
+                <div class="my-1 flex-1 overflow-hidden rounded-lg border border-amber-500/30">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" alt="Wheel of Fortune" class="h-full w-full object-cover" />
+                </div>
+                <div class="text-center">
+                  <div class="font-serif-title text-[11px] font-bold text-amber-100">Wheel of Fortune</div>
+                  <div class="font-mono-code text-[8px] text-cyan-300 truncate">Quantum RNG Cycle</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preview Gallery of 22 Major Arcana RWS Cards -->
+    <section class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="font-serif-title text-xl font-bold text-amber-200">[0x00 – 0x15] BỘ 22 THANH GHI ẨN CHÍNH (MAJOR ARCANA RWS ROM)</h2>
+          <p class="font-mono-code text-xs text-slate-400">Click vào bất kỳ lá nào để sang bàn rút bài 78 lá tương tác (draw-cards.html)</p>
+        </div>
+        <a href="draw-cards.html" class="font-mono-code text-xs text-cyan-300 hover:underline">Xem trọn bộ 78 lá (22 Major + 56 Minor) →</a>
+      </div>
+      <div id="major-gallery" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-3"></div>
+    </section>
+  </main>
+
+  <script>
+    const MAJOR_CARDS = [
+      { id: 0, hex: "0x00", name: "The Fool", vi: "Kẻ Khờ", img: "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg" },
+      { id: 1, hex: "0x01", name: "The Magician", vi: "Nhà Ảo Thuật", img: "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg" },
+      { id: 2, hex: "0x02", name: "High Priestess", vi: "Nữ Tư Tế", img: "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg" },
+      { id: 3, hex: "0x03", name: "The Empress", vi: "Nữ Hoàng", img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg" },
+      { id: 4, hex: "0x04", name: "The Emperor", vi: "Hoàng Đế", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg" },
+      { id: 5, hex: "0x05", name: "The Hierophant", vi: "Giáo Hoàng", img: "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg" },
+      { id: 6, hex: "0x06", name: "The Lovers", vi: "Đôi Tình Nhân", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_06_Lovers.jpg" },
+      { id: 7, hex: "0x07", name: "The Chariot", vi: "Cỗ Xe", img: "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg" },
+      { id: 8, hex: "0x08", name: "Strength", vi: "Sức Mạnh", img: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg" },
+      { id: 9, hex: "0x09", name: "The Hermit", vi: "Ẩn Sĩ", img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg" },
+      { id: 10, hex: "0x0A", name: "Wheel of Fortune", vi: "Bánh Xe Số Phận", img: "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg" },
+      { id: 11, hex: "0x0B", name: "Justice", vi: "Công Lý", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg" },
+      { id: 12, hex: "0x0C", name: "The Hanged Man", vi: "Người Treo", img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg" },
+      { id: 13, hex: "0x0D", name: "Death", vi: "Tử Thần", img: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg" },
+      { id: 14, hex: "0x0E", name: "Temperance", vi: "Tiết Độ", img: "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg" },
+      { id: 15, hex: "0x0F", name: "The Devil", vi: "Ác Quỷ", img: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg" },
+      { id: 16, hex: "0x10", name: "The Tower", vi: "Tòa Tháp", img: "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg" },
+      { id: 17, hex: "0x11", name: "The Star", vi: "Ngôi Sao", img: "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg" },
+      { id: 18, hex: "0x12", name: "The Moon", vi: "Mặt Trăng", img: "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg" },
+      { id: 19, hex: "0x13", name: "The Sun", vi: "Mặt Trời", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg" },
+      { id: 20, hex: "0x14", name: "Judgement", vi: "Phán Quyết", img: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg" },
+      { id: 21, hex: "0x15", name: "The World", vi: "Thế Giới", img: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg" }
+    ];
+    const gallery = document.getElementById("major-gallery");
+    gallery.innerHTML = MAJOR_CARDS.map(c => `
+      <a href="draw-cards.html" class="group rounded-xl border border-slate-800 bg-[#0B0C14] p-1.5 hover:border-amber-400 transition flex flex-col">
+        <div class="font-mono-code text-[9px] text-amber-300 mb-1 flex justify-between">
+          <span>${c.hex}</span><span>RWS</span>
+        </div>
+        <div class="aspect-[2/3] w-full overflow-hidden rounded-lg bg-slate-950">
+          <img src="${c.img}" alt="${c.name}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" />
+        </div>
+        <div class="mt-1.5 text-center">
+          <div class="font-serif-title text-[10px] font-bold text-slate-100 truncate">${c.name}</div>
+          <div class="text-[9px] text-cyan-300 truncate">${c.vi}</div>
+        </div>
+      </a>
+    `).join("");
+  </script>
+</body>
+</html>
