@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Shuffle,
@@ -508,14 +509,22 @@ export function CyberTarotExperience() {
       <header className="sticky top-0 z-30 border-b border-slate-800/80 bg-[#05050A]/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 sm:py-3">
           {/* Left: 30 Years FET Brand Logo */}
-          <div className="flex items-center shrink-0">
+          <Link
+            href="/"
+            onClick={() => {
+              setStage("STAGE_CONFIG");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center shrink-0 transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none group"
+            title="Về Trang Chủ"
+          >
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/image_3.png`}
               alt="Logo 30 Năm FET UET (1996 - 2026) - Pioneering Creative"
-              className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_0_24px_rgba(245,158,11,0.25)]"
+              className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_0_24px_rgba(245,158,11,0.25)] group-hover:drop-shadow-[0_0_30px_rgba(245,158,11,0.5)] transition-all"
               loading="eager"
             />
-          </div>
+          </Link>
 
           {/* Center: Stepper 1, 2, 3 (CHỌN BÀI -> RÚT BÀI -> PHÂN TÍCH CHUYÊN SÂU) */}
           <div className="flex items-center justify-center flex-1 overflow-x-auto py-1">
