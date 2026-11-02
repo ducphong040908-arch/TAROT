@@ -743,30 +743,53 @@ export function TarotTwoBlockReading({
         }
 
         if (sec.type === "quote") {
+          const rawText = sec.body.trim();
+          // Tách câu trích dẫn và tác giả nếu có định dạng "... " — Tác giả
+          const lastDashIdx = Math.max(
+            rawText.lastIndexOf("—"),
+            rawText.lastIndexOf("–"),
+            rawText.lastIndexOf("--")
+          );
+          let quotePart = rawText;
+          let authorPart = "";
+          if (lastDashIdx > 0) {
+            const separatorLength = rawText.substring(lastDashIdx).startsWith("--") ? 2 : 1;
+            quotePart = rawText.slice(0, lastDashIdx).trim();
+            authorPart = rawText.slice(lastDashIdx + separatorLength).trim();
+          }
+
           return (
             <div
               key={sec.key}
               className={cn(
                 "rounded-2xl border transition-all text-center",
                 compact ? "p-3 sm:p-4" : "p-4 sm:p-5",
-                "border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 via-slate-900/80 to-[#0A0B14]"
+                "border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 via-slate-900/80 to-[#0A0B14] shadow-[0_0_30px_rgba(6,182,212,0.06)]"
               )}
             >
-              <div className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 mb-2">
+              <div className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 mb-2.5">
                 <Flame className="h-3.5 w-3.5 text-cyan-300" />
                 {sec.badge}
               </div>
-              <p
+              <blockquote
                 className={cn(
                   "font-display italic text-cyan-100 leading-relaxed font-medium max-w-3xl mx-auto",
-                  compact ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+                  compact ? "text-sm sm:text-base" : "text-base sm:text-lg"
                 )}
               >
-                {renderFormattedMarkdownText(sec.body)}
-                {isTyping && isLast && (
+                {renderFormattedMarkdownText(quotePart)}
+                {isTyping && isLast && !authorPart && (
                   <span className="inline-block h-4 w-2 ml-1 bg-cyan-400 animate-pulse align-middle" />
                 )}
-              </p>
+              </blockquote>
+              {authorPart && (
+                <div className="mt-2.5 font-sans font-semibold text-xs sm:text-sm tracking-wide text-cyan-400">
+                  — {authorPart}
+                  {isTyping && isLast && (
+                    <span className="inline-block h-3.5 w-1.5 ml-1 bg-cyan-400 animate-pulse align-middle" />
+                  )}
+                </div>
+              )}
             </div>
           );
         }

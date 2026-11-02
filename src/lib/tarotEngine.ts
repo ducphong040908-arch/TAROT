@@ -37,7 +37,12 @@ Bắt buộc trình bày rõ ràng, mạch lạc thành 4 phần có tiêu đề
 - **Điều tuyệt đối nên tránh (Don't):** [Những cạm bẫy tâm lý, sai lầm hành vi hoặc sự chủ quan do các lá bài (đặc biệt là lá ngược / thử thách) cảnh báo]
 
 ### ✦ LỜI ĐÚC KẾT THỨC TỈNH
-[1 câu châm ngôn hoặc đúc kết sắc sảo giúp người xem bừng tỉnh nhận thức và tự tin làm chủ số phận của mình]
+TUYỆT ĐỐI KHÔNG TỰ BỊA ĐẶT CÂU NÓI. Bắt buộc trích dẫn chính xác 1 câu danh ngôn của người nổi tiếng, danh nhân lịch sử, triết gia (ví dụ: Marcus Aurelius, Seneca, Epictetus, Lão Tử, Khổng Tử, Socrates, Nietzsche, Camus, Steve Jobs, Goethe...) hoặc 1 câu ca dao, tục ngữ, thành ngữ dân gian nổi tiếng có tính đúc kết và ứng hợp sâu sắc nhất với bài học của trải bài.
+Bắt buộc ghi rõ tác giả hoặc nguồn gốc trích dẫn theo định dạng:
+"[Nội dung câu trích dẫn]" — [Tên tác giả / Triết gia / Xuất xứ ca dao tục ngữ]
+Ví dụ: "Trở ngại trên con đường sẽ trở thành chính con đường. Điều cản trở hành động sẽ thúc đẩy hành động." — Marcus Aurelius
+Hoặc: "Hành trình vạn dặm bắt đầu từ một bước chân." — Lão Tử
+Hoặc: "Lửa thử vàng, gian nan thử sức." — Tục ngữ Việt Nam
 
 ### 3. CẤU TRÚC PHẢN HỒI CHO HỎI ĐÁP CHUYÊN SÂU (CHAT)
 Bắt buộc giải đáp đúng trọng tâm câu hỏi mới nhất, kết nối với bối cảnh các lá bài đã rút:
@@ -688,10 +693,8 @@ export function buildSynthesisFallback(
     dontAction = `Tuyệt đối tránh tâm lý chủ quan, tự mãn hoặc trông chờ vào may mắn thụ động khi cục diện đang mở ra thuận lợi.`;
   }
 
-  // 4. LỜI ĐÚC KẾT THỨC TỈNH
-  const reflectiveSpark = isChallenging
-    ? `Nghịch cảnh trên bàn bài không sinh ra để cản bước bạn, mà để bóc tách những điều không còn phù hợp; hãy làm chủ tâm thế và kiên quyết hành động.`
-    : `Thời cơ chỉ thực sự biến thành thành tựu khi bạn đặt xuống sự do dự và bắt tay vào hành động với kỷ luật thép.`;
+  // 4. LỜI ĐÚC KẾT THỨC TỈNH (Trích dẫn danh ngôn người nổi tiếng, triết gia, ca dao tục ngữ chuẩn mực)
+  const awakeningQuote = getContextualAwakeningQuote(topic, dynamics, normalizedCards, question);
 
   return `### ✦ THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT
 ${coreVerdict}
@@ -704,7 +707,98 @@ ${macroAnalysis}${narrativeChain} ${catalystMention}
 - **Điều tuyệt đối nên tránh (Don't):** ${dontAction}
 
 ### ✦ LỜI ĐÚC KẾT THỨC TỈNH
-"${reflectiveSpark}"`;
+${awakeningQuote}`;
+}
+
+/**
+ * Thư viện danh ngôn, triết gia và ca dao tục ngữ chuẩn mực cho LỜI ĐÚC KẾT THỨC TỈNH.
+ * Tuyệt đối không tự chế câu; chỉ trích dẫn từ các danh nhân, triết gia và kho tàng văn hóa dân gian.
+ */
+export function getContextualAwakeningQuote(
+  topic: string,
+  dynamics: ReturnType<typeof analyzeSpreadDynamics>,
+  cards: Required<RichCardInput>[],
+  question: string
+): string {
+  const isChallenging = dynamics.isChallenging;
+  const dominantElement = dynamics.dominantElement;
+  const topicLower = (topic || "").toLowerCase();
+
+  // Bể danh ngôn phân loại theo ngữ cảnh
+  const adversityQuotes = [
+    `"Trở ngại trên con đường sẽ trở thành chính con đường. Điều cản trở hành động sẽ thúc đẩy hành động." — Marcus Aurelius`,
+    `"Lửa thử vàng, gian nan thử sức." — Tục ngữ Việt Nam`,
+    `"Khó khăn sinh ra để tôi luyện con người, không phải để hủy hoại họ." — Epictetus`,
+    `"Cái gì không thể đánh gục được ta sẽ khiến ta mạnh mẽ hơn." — Friedrich Nietzsche`,
+    `"Giữa mùa đông buốt giá, tôi nhận ra trong mình có một mùa hè bất diệt." — Albert Camus`,
+    `"Qua cơn bĩ cực đến hồi thái lai." — Thành ngữ dân gian`,
+    `"Chớ thấy sóng cả mà ngã tay chèo." — Ca dao Việt Nam`,
+    `"Người có lý do đủ lớn để sống có thể chịu đựng được hầu hết mọi nghịch cảnh." — Viktor Frankl`,
+  ];
+
+  const actionFireQuotes = [
+    `"Hành trình vạn dặm bắt đầu từ một bước chân." — Lão Tử`,
+    `"Cách tốt nhất để dự đoán tương lai là hãy tự mình tạo ra nó." — Peter Drucker`,
+    `"Biết thôi chưa đủ, phải thực hành; muốn thôi chưa đủ, phải dấn thân." — Johann Wolfgang von Goethe`,
+    `"Thời điểm tốt nhất để trồng cây là 20 năm trước. Thời điểm tốt thứ hai là ngay bây giờ." — Ngạn ngữ`,
+    `"Nước chảy đá mòn; có công mài sắt có ngày nên kim." — Tục ngữ Việt Nam`,
+    `"Dám nghĩ dám làm, ắt làm nên chuyện." — Tục ngữ Việt Nam`,
+    `"Số phận chỉ mỉm cười với những tâm hồn quả cảm và sẵn sàng hành động dứt khoát." — Virgil`,
+  ];
+
+  const wisdomAirQuotes = [
+    `"Biết người là trí, biết mình là sáng. Thắng người là có lực, thắng mình mới là kiên cường." — Lão Tử (Đạo Đức Kinh)`,
+    `"Cuộc đời không qua suy ngẫm là một cuộc đời không đáng sống." — Socrates`,
+    `"Học mà không suy nghĩ thì mịt mờ, suy nghĩ mà không học thì nguy hại." — Khổng Tử`,
+    `"Sự bình yên trong tâm trí là nguồn sức mạnh tối thượng trước mọi sóng gió." — Seneca`,
+    `"Đừng để tiếng ồn từ quan điểm của người khác nhấn chìm tiếng nói sâu thẳm bên trong bạn." — Steve Jobs`,
+    `"Tâm bất biến giữa dòng đời vạn biến." — Triết lý phương Đông`,
+    `"Người làm chủ được cảm xúc và tâm trí mới là người thực sự tự do." — Epictetus`,
+  ];
+
+  const emotionWaterQuotes = [
+    `"Chỉ có trái tim mới thấy được những điều cốt lõi; điều thực sự quan trọng vô hình trong mắt trần." — Antoine de Saint-Exupéry`,
+    `"Nước mềm mại nhất thiên hạ, nhưng không thứ cứng rắn nào có thể chiến thắng được nó." — Lão Tử`,
+    `"Vết thương chính là nơi ánh sáng đi vào bạn." — Rumi`,
+    `"Thương người như thể thương thân; tâm an thì vạn sự an." — Tục ngữ Việt Nam`,
+    `"Khi bạn học cách buông bỏ những điều không thuộc về mình, những điều tốt đẹp hơn sẽ tự khắc tìm đến." — Thiền sư Thích Nhất Hạnh`,
+    `"Lùi một bước biển rộng trời cao." — Thành ngữ dân gian`,
+  ];
+
+  const earthStabilityQuotes = [
+    `"Cây lớn ôm một vòng tay khởi sinh từ mầm nhỏ, tháp cao chín tầng bắt đầu từ từng sọt đất." — Lão Tử`,
+    `"Gieo hành vi gặt thói quen, gieo thói quen gặt tính cách, gieo tính cách gặt số phận." — William James`,
+    `"Tích tiểu thành đại; ngọc bất trác bất thành khí." — Thành ngữ dân gian`,
+    `"Muốn đi nhanh hãy đi một mình, muốn đi xa hãy đi cùng nhau." — Ngạn ngữ Châu Phi`,
+    `"Kiên nhẫn là cay đắng, nhưng quả ngọt của nó sẽ trường tồn." — Jean-Jacques Rousseau`,
+    `"Có chí thì nên; thuận vợ thuận chồng tát biển Đông cũng cạn." — Tục ngữ Việt Nam`,
+  ];
+
+  // Chọn danh sách phù hợp nhất dựa trên tính chất
+  let pool = adversityQuotes;
+  if (isChallenging) {
+    pool = adversityQuotes;
+  } else if (dominantElement === "Lửa" || topicLower.includes("công việc") || topicLower.includes("sự nghiệp")) {
+    pool = actionFireQuotes;
+  } else if (dominantElement === "Nước" || topicLower.includes("tình") || topicLower.includes("mối quan hệ")) {
+    pool = emotionWaterQuotes;
+  } else if (dominantElement === "Đất" || topicLower.includes("tài chính") || topicLower.includes("tiền") || topicLower.includes("kinh doanh")) {
+    pool = earthStabilityQuotes;
+  } else if (dominantElement === "Khí" || topicLower.includes("học tập") || topicLower.includes("định hướng") || topicLower.includes("tâm lý")) {
+    pool = wisdomAirQuotes;
+  } else {
+    pool = actionFireQuotes;
+  }
+
+  // Chọn ngẫu nhiên có kiểm soát dựa trên hash nội dung để mỗi lượt trải bài có câu danh ngôn ứng hợp và không trùng lặp
+  const seedString = `${question}_${topic}_${cards.map((c) => c.name).join("_")}`;
+  let hash = 0;
+  for (let i = 0; i < seedString.length; i++) {
+    hash = (hash << 5) - hash + seedString.charCodeAt(i);
+    hash |= 0;
+  }
+  const index = Math.abs(hash) % pool.length;
+  return pool[index];
 }
 
 export function buildContextualChatFallback(
@@ -1070,7 +1164,12 @@ YÊU CẦU BẮT BUỘC CHO PHÂN TÍCH CHUYÊN SÂU TOÀN BỘ TRẢI BÀI (SYN
 - **Điều tuyệt đối nên tránh (Don't):** [Những cạm bẫy tâm lý, sai lầm hành vi hoặc sự chủ quan do các lá bài (đặc biệt là lá ngược / thử thách) cảnh báo]
 
 ### ✦ LỜI ĐÚC KẾT THỨC TỈNH
-[1 câu châm ngôn hoặc đúc kết sắc sảo giúp người xem bừng tỉnh nhận thức và tự tin làm chủ số phận của mình]
+TUYỆT ĐỐI KHÔNG TỰ BỊA ĐẶT CÂU NÓI. Bắt buộc trích dẫn chính xác 1 câu danh ngôn của người nổi tiếng, danh nhân lịch sử, triết gia (ví dụ: Marcus Aurelius, Seneca, Epictetus, Lão Tử, Khổng Tử, Socrates, Nietzsche, Camus, Steve Jobs, Goethe...) hoặc 1 câu ca dao, tục ngữ, thành ngữ dân gian nổi tiếng có tính đúc kết và ứng hợp sâu sắc nhất với bài học của trải bài.
+Bắt buộc ghi rõ tác giả hoặc nguồn gốc trích dẫn theo định dạng:
+"[Nội dung câu trích dẫn]" — [Tên tác giả / Triết gia / Xuất xứ ca dao tục ngữ]
+Ví dụ: "Trở ngại trên con đường sẽ trở thành chính con đường. Điều cản trở hành động sẽ thúc đẩy hành động." — Marcus Aurelius
+Hoặc: "Hành trình vạn dặm bắt đầu từ một bước chân." — Lão Tử
+Hoặc: "Lửa thử vàng, gian nan thử sức." — Tục ngữ Việt Nam
 
 4. Tuyệt đối CẤM cử chỉ nhập vai trong ngoặc đơn "(gõ nhẹ...)" và cấm dùng các từ trong danh sách cấm.`;
 }
