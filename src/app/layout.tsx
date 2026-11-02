@@ -1,34 +1,5 @@
 import type { Metadata } from "next";
-import { Lexend, Plus_Jakarta_Sans, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
-
-const lexend = Lexend({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-lexend",
-  weight: ["500", "600", "700", "800"],
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-jakarta",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-jetbrains",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "FET 30 NĂM // LẮNG NGHE VŨ TRỤ, HIỂU RÕ CHÍNH MÌNH — Khám Phá Bản Thân Qua Lá Bài Tarot",
@@ -42,10 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="vi"
-      className={`dark ${lexend.variable} ${jakarta.variable} ${jetbrains.variable} ${inter.variable}`}
-    >
+    <html lang="vi" className="dark">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Lexend:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="font-sans antialiased bg-[#05050A] text-slate-100 selection:bg-amber-500/30 selection:text-amber-200">
         {children}
       </body>
