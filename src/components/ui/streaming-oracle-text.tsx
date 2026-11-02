@@ -12,6 +12,9 @@ import {
   Sparkles,
   CheckCircle2,
   RefreshCw,
+  AlertTriangle,
+  Compass,
+  ShieldAlert,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { SpreadConfig } from "@/data/tarot-deck";
@@ -324,9 +327,14 @@ export function StreamingOracleText({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500" />
             </span>
-            <h3 className="font-display text-lg sm:text-xl font-bold text-slate-100">
-              [02] Phân Tích Chuyên Sâu Toàn Bộ Trải Bài
-            </h3>
+            <div>
+              <h3 className="font-display text-lg sm:text-xl font-bold text-slate-100">
+                [02] Phân Tích Chuyên Sâu &amp; Liên Kết Toàn Bộ Trải Bài
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5 font-normal">
+                Xâu chuỗi nhân quả, giải mã sự va chạm năng lượng và đúc kết chiến lược hành động dứt khoát
+              </p>
+            </div>
           </div>
           <span className="font-sans text-xs font-semibold text-cyan-400">
             {isSynthesizing
@@ -437,10 +445,153 @@ export function parseParentheticalGestures(
 }
 
 /**
- * Component hiển thị kết quả đọc bài Tarot thành 2 khối tách biệt:
- * - Khối 1: Phán quyết / Giải đáp trực diện
- * - Khối 2: Định hướng & Hành động thực tế
- * Toàn bộ nội dung văn bản hiển thị đồng nhất màu sáng (text-slate-100), sạch sẽ, không có chữ màu vàng.
+ * Helper render text có chứa Markdown in đậm **text** thành React Element thuần túy
+ */
+function renderFormattedMarkdownText(text: string) {
+  const parts = text.split(/\*\*(.*?)\*\*/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="text-white font-bold">
+        {part}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
+
+interface ParsedReadingSection {
+  key: string;
+  type: "verdict" | "connection" | "action" | "quote" | "generic";
+  badge: string;
+  title: string;
+  body: string;
+  doList: string[];
+  dontList: string[];
+}
+
+function parseReadingSections(text: string): ParsedReadingSection[] {
+  const clean = parseParentheticalGestures(text);
+  if (!clean.includes("###")) {
+    const paras = clean
+      .split(/\n\s*\n/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    return paras.map((p, idx) => {
+      const isFirst = idx === 0;
+      return {
+        key: `para-${idx}`,
+        type: isFirst ? "verdict" : idx === 1 ? "action" : "generic",
+        badge: isFirst
+          ? "THÔNG ĐIỆP CỐT LÕI"
+          : idx === 1
+          ? "CHIẾN LƯỢC HÀNH ĐỘNG"
+          : `LUẬN GIẢI BỔ SUNG ${idx + 1}`,
+        title: isFirst ? "Phán Quyết & Trọng Tâm" : "Định Hướng Thực Tế",
+        body: p,
+        doList: [],
+        dontList: [],
+      };
+    });
+  }
+
+  const rawSections = clean.split(/(?=###\s+)/g);
+  const blocks: ParsedReadingSection[] = [];
+
+  rawSections.forEach((sec, idx) => {
+    const trimmed = sec.trim();
+    if (!trimmed) return;
+
+    const lines = trimmed.split("\n");
+    const headerLine = lines[0].replace(/^###\s*✦?\s*/, "").trim();
+    const contentLines = lines.slice(1).map((l) => l.trim()).filter(Boolean);
+
+    const headerUpper = headerLine.toUpperCase();
+    let type: ParsedReadingSection["type"] = "generic";
+    let badge = headerLine;
+
+    if (
+      headerUpper.includes("THÔNG ĐIỆP") ||
+      headerUpper.includes("PHÁN QUYẾT") ||
+      headerUpper.includes("TRỌNG TÂM")
+    ) {
+      type = "verdict";
+      badge = "THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT";
+    } else if (
+      headerUpper.includes("BỨC TRANH") ||
+      headerUpper.includes("LIÊN KẾT") ||
+      headerUpper.includes("KẾT NỐI") ||
+      headerUpper.includes("XÂU CHUỖI")
+    ) {
+      type = "connection";
+      badge = "SỢI DÂY LIÊN KẾT BỘ BÀI";
+    } else if (
+      headerUpper.includes("HÀNH ĐỘNG") ||
+      headerUpper.includes("CHIẾN LƯỢC") ||
+      headerUpper.includes("LỘ TRÌNH") ||
+      headerUpper.includes("THỰC THI") ||
+      headerUpper.includes("HÓA GIẢI")
+    ) {
+      type = "action";
+      badge = "CHIẾN LƯỢC HÀNH ĐỘNG DỨT KHOÁT";
+    } else if (
+      headerUpper.includes("ĐÚC KẾT") ||
+      headerUpper.includes("THỨC TỈNH") ||
+      headerUpper.includes("LỜI KẾT")
+    ) {
+      type = "quote";
+      badge = "ĐÚC KẾT THỨC TỈNH";
+    }
+
+    const doList: string[] = [];
+    const dontList: string[] = [];
+    const remainingLines: string[] = [];
+
+    contentLines.forEach((line) => {
+      const cleanLine = line.replace(/^[-*•]\s*/, "").trim();
+      const lower = cleanLine.toLowerCase();
+      if (
+        lower.startsWith("**việc cần làm") ||
+        lower.startsWith("**việc nên làm") ||
+        lower.startsWith("**giai đoạn") ||
+        lower.startsWith("**bước") ||
+        lower.startsWith("**trọng tâm hành động")
+      ) {
+        doList.push(cleanLine);
+      } else if (
+        lower.startsWith("**điều tuyệt đối nên tránh") ||
+        lower.startsWith("**điều cần tránh") ||
+        lower.startsWith("**điều nên tránh") ||
+        lower.startsWith("**cạm bẫy") ||
+        lower.startsWith("**nguyên tắc cốt tử")
+      ) {
+        dontList.push(cleanLine);
+      } else {
+        remainingLines.push(line);
+      }
+    });
+
+    blocks.push({
+      key: `sec-${idx}`,
+      type,
+      badge,
+      title: headerLine,
+      body: remainingLines.join("\n"),
+      doList,
+      dontList,
+    });
+  });
+
+  return blocks;
+}
+
+/**
+ * Component hiển thị kết quả đọc bài Tarot có cấu trúc phân đoạn trực quan:
+ * - Khối 1: Thông điệp cốt lõi & Phán quyết dứt khoát
+ * - Khối 2: Bức tranh toàn cảnh & Sợi dây liên kết bộ bài (xâu chuỗi nhân quả)
+ * - Khối 3: Chiến lược hành động (Việc Nên Làm / Điều Cần Tránh tách bạch)
+ * - Khối 4: Lời đúc kết thức tỉnh
  */
 export function TarotTwoBlockReading({
   text,
@@ -451,62 +602,197 @@ export function TarotTwoBlockReading({
   isTyping?: boolean;
   compact?: boolean;
 }) {
-  const paragraphs = text
-    .split(/\n\s*\n/)
-    .map((p) => parseParentheticalGestures(p.trim()))
-    .filter(Boolean);
+  const sections = parseReadingSections(text);
 
-  if (paragraphs.length === 0) {
+  if (sections.length === 0) {
     return null;
   }
 
   return (
     <div className={cn("space-y-4", compact && "space-y-3")}>
-      {paragraphs.map((para, idx) => {
-        const isFirstBlock = idx === 0;
+      {sections.map((sec, idx) => {
+        const isLast = idx === sections.length - 1;
 
+        if (sec.type === "verdict") {
+          return (
+            <div
+              key={sec.key}
+              className={cn(
+                "rounded-2xl border transition-all",
+                compact ? "p-3.5 sm:p-4" : "p-4 sm:p-5",
+                "border-amber-500/40 bg-gradient-to-br from-amber-500/10 via-slate-900/90 to-[#0A0B14] shadow-[0_0_30px_rgba(245,158,11,0.08)]"
+              )}
+            >
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+                  {sec.badge}
+                </span>
+              </div>
+              <p
+                className={cn(
+                  "font-sans text-slate-100 leading-relaxed whitespace-pre-line font-medium",
+                  compact ? "text-sm sm:text-base" : "text-base sm:text-lg"
+                )}
+              >
+                {renderFormattedMarkdownText(sec.body)}
+                {isTyping && isLast && (
+                  <span className="inline-block h-4 w-2 ml-1 bg-amber-400 animate-pulse align-middle" />
+                )}
+              </p>
+            </div>
+          );
+        }
+
+        if (sec.type === "connection") {
+          return (
+            <div
+              key={sec.key}
+              className={cn(
+                "rounded-2xl border transition-all",
+                compact ? "p-3.5 sm:p-4" : "p-4 sm:p-5",
+                "border-indigo-500/35 bg-gradient-to-br from-indigo-500/10 via-slate-900/90 to-[#0A0B14] shadow-[0_0_30px_rgba(99,102,241,0.08)]"
+              )}
+            >
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                  <Activity className="h-3.5 w-3.5 text-indigo-300" />
+                  {sec.badge}
+                </span>
+              </div>
+              <p
+                className={cn(
+                  "font-sans text-slate-200 leading-relaxed whitespace-pre-line font-normal",
+                  compact ? "text-sm sm:text-base" : "text-base sm:text-lg"
+                )}
+              >
+                {renderFormattedMarkdownText(sec.body)}
+                {isTyping && isLast && (
+                  <span className="inline-block h-4 w-2 ml-1 bg-indigo-400 animate-pulse align-middle" />
+                )}
+              </p>
+            </div>
+          );
+        }
+
+        if (sec.type === "action") {
+          return (
+            <div
+              key={sec.key}
+              className={cn(
+                "rounded-2xl border transition-all space-y-3.5",
+                compact ? "p-3.5 sm:p-4" : "p-4 sm:p-5",
+                "border-emerald-500/35 bg-gradient-to-br from-emerald-500/10 via-slate-900/90 to-[#0A0B14] shadow-[0_0_30px_rgba(16,185,129,0.08)]"
+              )}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <Compass className="h-3.5 w-3.5 text-emerald-300" />
+                  {sec.badge}
+                </span>
+              </div>
+
+              {sec.body && (
+                <p
+                  className={cn(
+                    "font-sans text-slate-200 leading-relaxed whitespace-pre-line",
+                    compact ? "text-sm sm:text-base" : "text-base sm:text-lg"
+                  )}
+                >
+                  {renderFormattedMarkdownText(sec.body)}
+                </p>
+              )}
+
+              {sec.doList.length > 0 && (
+                <div className="space-y-2">
+                  {sec.doList.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 p-3 sm:p-3.5 text-sm sm:text-base text-emerald-100"
+                    >
+                      <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <div className="flex-1 leading-relaxed">
+                        {renderFormattedMarkdownText(item)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {sec.dontList.length > 0 && (
+                <div className="space-y-2 pt-1">
+                  {sec.dontList.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-2.5 rounded-xl border border-rose-500/35 bg-rose-950/40 p-3 sm:p-3.5 text-sm sm:text-base text-rose-100"
+                    >
+                      <AlertTriangle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
+                      <div className="flex-1 leading-relaxed">
+                        {renderFormattedMarkdownText(item)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {isTyping && isLast && (
+                <span className="inline-block h-4 w-2 ml-1 bg-emerald-400 animate-pulse align-middle" />
+              )}
+            </div>
+          );
+        }
+
+        if (sec.type === "quote") {
+          return (
+            <div
+              key={sec.key}
+              className={cn(
+                "rounded-2xl border transition-all text-center",
+                compact ? "p-3 sm:p-4" : "p-4 sm:p-5",
+                "border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 via-slate-900/80 to-[#0A0B14]"
+              )}
+            >
+              <div className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 mb-2">
+                <Flame className="h-3.5 w-3.5 text-cyan-300" />
+                {sec.badge}
+              </div>
+              <p
+                className={cn(
+                  "font-display italic text-cyan-100 leading-relaxed font-medium max-w-3xl mx-auto",
+                  compact ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+                )}
+              >
+                {renderFormattedMarkdownText(sec.body)}
+                {isTyping && isLast && (
+                  <span className="inline-block h-4 w-2 ml-1 bg-cyan-400 animate-pulse align-middle" />
+                )}
+              </p>
+            </div>
+          );
+        }
+
+        // Generic block
         return (
           <div
-            key={idx}
+            key={sec.key}
             className={cn(
-              "rounded-2xl border-l-4 transition-all",
-              compact ? "p-3.5 sm:p-4" : "p-4 sm:p-5",
-              isFirstBlock
-                ? "border-l-cyan-400 border border-cyan-500/20 bg-slate-900/60"
-                : "border-l-indigo-400 border border-indigo-500/20 bg-slate-900/60"
+              "rounded-2xl border-l-4 transition-all border-l-slate-400 border border-slate-700/60 bg-slate-900/60",
+              compact ? "p-3.5 sm:p-4" : "p-4 sm:p-5"
             )}
           >
             <div className="flex items-center gap-2 mb-2">
-              <span
-                className={cn(
-                  "rounded-md px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider",
-                  isFirstBlock
-                    ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
-                    : "bg-indigo-500/15 text-indigo-300 border border-indigo-500/30"
-                )}
-              >
-                {compact
-                  ? isFirstBlock
-                    ? "Trọng Tâm Giải Đáp"
-                    : idx === 1
-                    ? "Lộ Trình & Hành Động Cụ Thể"
-                    : `Luận Giải Chi Tiết ${idx + 1}`
-                  : isFirstBlock
-                  ? "Đoạn 1 • Phán Quyết Trực Diện"
-                  : idx === 1
-                  ? "Đoạn 2 • Định Hướng Hành Động"
-                  : `Đoạn ${idx + 1} • Luận Giải Bổ Sung`}
+              <span className="rounded-md px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">
+                {sec.badge}
               </span>
             </div>
-
             <p
               className={cn(
                 "font-sans text-slate-100 leading-relaxed whitespace-pre-line font-normal",
                 compact ? "text-sm sm:text-base" : "text-base sm:text-lg"
               )}
             >
-              {para}
-              {isTyping && idx === paragraphs.length - 1 && (
+              {renderFormattedMarkdownText(sec.body)}
+              {isTyping && isLast && (
                 <span className="inline-block h-4 w-2 ml-1 bg-cyan-400 animate-pulse align-middle" />
               )}
             </p>

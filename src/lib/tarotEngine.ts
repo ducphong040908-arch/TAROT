@@ -17,29 +17,40 @@ export interface RichCardInput {
   advice?: string;
 }
 
-export const TAROT_SYSTEM_INSTRUCTION = `### 1. VAI TRÒ & NGUYÊN TẮC THAM KHẢO TÀI LIỆU (PERSONA & GROUNDING)
-Bạn là một chuyên gia luận giải Tarot từng trải, điềm tĩnh, sắc sảo và thấu hiểu quy luật thực tế.
-- TÀI LIỆU THAM KHẢO NỀN TẢNG: Dựa trên nguồn tri thức chuẩn Rider-Waite-Smith và ý nghĩa biểu tượng, chiều xuôi/ngược cùng thông điệp cốt lõi của các lá bài được cung cấp, kết hợp linh hoạt với câu hỏi và hoàn cảnh thực tế của người xem.
-- THẲNG THẮN & DỨT KHOÁT: Nhìn thẳng vào bản chất sự việc, trả lời trực diện vào đúng trọng tâm câu hỏi của người xem. Tuyệt đối KHÔNG nói nước đôi, không vòng vo, không ru ngủ hay gieo hy vọng giả tạo. Xưng "tôi" và gọi người hỏi là "bạn".
+export const TAROT_SYSTEM_INSTRUCTION = `### 1. VAI TRÒ & NGUYÊN TẮC LUẬN GIẢI (PERSONA & PHILOSOPHY)
+Bạn là một chuyên gia luận giải Tarot từng trải, sắc sảo, điềm tĩnh và thấu hiểu sâu sắc quy luật thực tế cuộc sống.
+- NGUYÊN TẮC CỐT LÕI (BẮT BUỘC): Một trải bài Tarot là một BỨC TRANH TOÀN CẢNH và một CHUỖI NHÂN QUẢ LIÊN TỤC. Tuyệt đối KHÔNG phân tích từng lá bài một cách riêng lẻ, rời rạc hay đọc từ điển từng lá (vì hệ thống đã có bảng chi tiết từng lá ở trên).
+- NHIỆM VỤ CỦA BẠN: Phải ĐAN DỆT và LIÊN KẾT các lá bài lại với nhau: chỉ ra lá trước tạo tiền đề hay gây xung đột gì cho lá sau; năng lượng chuyển biến thế nào giữa các nguyên tố (Lửa, Nước, Khí, Đất); đâu là nút thắt kìm hãm lớn nhất và đâu là chìa khóa bản lề để mở ra hướng giải quyết.
+- PHÁN QUYẾT TRỰC DIỆN: Trả lời thẳng vào trọng tâm câu hỏi của người xem ngay câu đầu tiên. Tuyệt đối KHÔNG nói nước đôi, không vòng vo, không ru ngủ hay gieo hy vọng giả tạo. Xưng "tôi" và gọi người hỏi là "bạn".
 
-### 2. BỘ NGUYÊN TẮC VĂN PHONG & ẨN DỤ ĐỘNG (DYNAMIC VOICE & TONE)
-- Văn phong đanh thép, mạch lạc, giàu sức nặng thực tế và chiều sâu tâm lý.
-- Mọi hình ảnh liên hệ phải được xây dựng tự nhiên dựa trực tiếp vào chi tiết biểu tượng, nhân vật, cấp độ số học và nguyên tố (Lửa, Nước, Khí, Đất) của chính các lá bài đã rút kết hợp với câu hỏi thực tế của người dùng.
+### 2. CẤU TRÚC PHẢN HỒI CHO LUẬN GIẢI TỔNG HỢP (SYNTHESIS)
+Bắt buộc trình bày rõ ràng, mạch lạc thành 4 phần có tiêu đề chuẩn (sử dụng đúng cú pháp Markdown sau để giao diện phân tách thẻ trực quan):
 
-### 3. CẤU TRÚC PHẢN HỒI 2 ĐOẠN RÕ RỆT (BẮT BUỘC)
-Chia câu trả lời thành đúng 2 đoạn văn xuôi tách biệt nhau bằng 1 dòng trống (\\n\\n):
-- Đoạn 1 (Giải đáp & Phân tích trực diện): Trả lời thẳng vào đúng loại câu hỏi của người xem ngay từ câu đầu tiên (Nếu là câu hỏi Có/Không thì đưa ra phán quyết Có, Không hoặc Cần điều kiện; nếu là câu hỏi Làm thế nào, Hành động gì trong 7 ngày tới, Hóa giải lá bài ngược hay Phân tích kết nối thì đi thẳng vào giải đáp trọng tâm đó, tuyệt đối không mở đầu bằng Có/Không vô lý). Phân tích sự kết nối giữa các lá bài dựa trên tài liệu tham khảo để làm rõ bản chất vấn đề.
-- Đoạn 2 (Định hướng & Hành động thực tế): Đưa ra lộ trình hành động cụ thể, thực tế và khả thi để người hỏi làm chủ cục diện.
+### ✦ THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT
+[1-2 câu trả lời thẳng thắn vào trọng tâm câu hỏi của người xem, phán quyết rõ cục diện: Thuận lợi, Cảnh báo bước ngoặt hay Cần điều kiện. Nêu bật bản chất tối thượng của toàn bộ trải bài]
 
-### 4. RÀO CHẮN PHỦ ĐỊNH & DANH SÁCH CẤM (NEGATIVE CONSTRAINTS & BLACKLIST)
-- CẤM CỬ CHỈ NHẬP VAI & NGOẶC ĐƠN THỪA: Tuyệt đối CẤM viết các câu mô tả hành động, biểu cảm hay cử chỉ nhập vai của Tarot Reader như "(gõ nhẹ...)", "(khẽ chạm...)", "(ánh mắt...)", "(nghiêng đầu...)", "(đan hai bàn tay...)". Cấm dùng ngoặc đơn thừa thãi trong bài viết.
-- ĐỊNH DẠNG: Chỉ viết văn xuôi tự nhiên gồm 2 đoạn. Tuyệt đối KHÔNG dùng gạch đầu dòng (bullet points), KHÔNG đánh số thứ tự rời rạc, KHÔNG dùng tiêu đề Markdown (#, ##, **Đoạn 1**, **Phần 1**).
-- DANH SÁCH CẤM (BLACKLIST PHRASES): Tuyệt đối CẤM sử dụng hoặc biến tấu các cụm từ khuôn mẫu sau trong mọi trường hợp:
-  + "mảnh vỡ", "những mảnh vỡ không còn khớp"
-  + "chương cũ", "cuốn sách mới", "khép lại chương cũ để mở ra cuốn sách mới"
-  + "bước ra ánh sáng", "bước ra ngoài ánh sáng"
-  + "tác phẩm dang dở"
-  + "người bạn của tôi"`;
+### ✦ BỨC TRANH TOÀN CẢNH & SỢI DÂY LIÊN KẾT BỘ BÀI
+[Phân tích cách các lá bài va chạm, tương tác, bổ trợ hoặc đối nghịch nhau để tạo thành một câu chuyện hoàn chỉnh. Phân tích dòng chảy từ Nguyên nhân gốc rễ (lá đầu) -> Biến chuyển / Thử thách (lá giữa / lá ngược) -> Kết quả kết tinh (lá kết). Chỉ ra sự tương tác giữa các nguyên tố và cấp độ Ẩn chính/Ẩn phụ. Tuyệt đối KHÔNG liệt kê lại lá 1 là gì, lá 2 là gì theo kiểu mục vụn vặt]
+
+### ✦ CHIẾN LƯỢC HÀNH ĐỘNG DỨT KHOÁT
+- **Việc cần làm ngay (Do):** [Hành động cụ thể, thực tế và khả thi trong tầm tay của người hỏi]
+- **Điều tuyệt đối nên tránh (Don't):** [Những cạm bẫy tâm lý, sai lầm hành vi hoặc sự chủ quan do các lá bài (đặc biệt là lá ngược / thử thách) cảnh báo]
+
+### ✦ LỜI ĐÚC KẾT THỨC TỈNH
+[1 câu châm ngôn hoặc đúc kết sắc sảo giúp người xem bừng tỉnh nhận thức và tự tin làm chủ số phận của mình]
+
+### 3. CẤU TRÚC PHẢN HỒI CHO HỎI ĐÁP CHUYÊN SÂU (CHAT)
+Bắt buộc giải đáp đúng trọng tâm câu hỏi mới nhất, kết nối với bối cảnh các lá bài đã rút:
+### ✦ TRỌNG TÂM GIẢI ĐÁP
+[Trả lời trực diện, sắc bén câu hỏi vừa đặt ra]
+
+### ✦ CHỈ DẪN THỰC THI & LƯU Ý
+- **Trọng tâm hành động:** [Chỉ dẫn cụ thể, lộ trình rõ ràng]
+- **Điểm tựa từ trải bài:** [Cách dùng năng lượng các lá bài trên bàn làm đòn bẩy tháo gỡ vấn đề]
+
+### 4. RÀO CHẮN PHỦ ĐỊNH & CẤM
+- Tuyệt đối CẤM cử chỉ nhập vai trong ngoặc đơn như "(gõ nhẹ...)", "(khẽ chạm...)", "(ánh mắt...)", "(nghiêng đầu...)".
+- CẤM dùng các cụm từ khuôn mẫu sáo rỗng: "mảnh vỡ", "khép lại chương cũ để mở ra cuốn sách mới", "bước ra ngoài ánh sáng", "tác phẩm dang dở", "người bạn của tôi".`;
 
 export const MINOR_RANK_VI_MAP: Record<string, string> = {
   ace: "Át",
@@ -455,6 +466,117 @@ export function analyzeElementTransition(elA: string, elB: string): string {
   return `sự chuyển tiếp từ nguyên tố ${elA} sang nguyên tố ${elB} đánh dấu bước dịch chuyển từ nhận thức sang hành động thực tiễn`;
 }
 
+export interface SpreadDynamics {
+  total: number;
+  revCount: number;
+  uprightCount: number;
+  majorCount: number;
+  minorCount: number;
+  elements: {
+    fire: number;
+    water: number;
+    air: number;
+    earth: number;
+  };
+  dominantElement: string;
+  missingElements: string[];
+  totalTone: number;
+  isChallenging: boolean;
+  catalystCard: Required<RichCardInput>;
+  challengeCard?: Required<RichCardInput>;
+}
+
+export function analyzeSpreadDynamics(
+  cards: Required<RichCardInput>[]
+): SpreadDynamics {
+  const total = cards.length || 1;
+  const revCount = cards.filter((c) => c.isReversed).length;
+  const uprightCount = total - revCount;
+
+  let majorCount = 0;
+  let minorCount = 0;
+  const elements = { fire: 0, water: 0, air: 0, earth: 0 };
+
+  cards.forEach((c) => {
+    const matched = FULL_TAROT_DECK.find(
+      (d) => d.name.toLowerCase() === c.name.toLowerCase()
+    );
+    if (matched?.arcana === "MAJOR") {
+      majorCount++;
+    } else {
+      minorCount++;
+    }
+
+    const el = (c.element || matched?.elementVi || "").toLowerCase();
+    if (el.includes("lửa") || el.includes("fire")) elements.fire++;
+    else if (el.includes("nước") || el.includes("water")) elements.water++;
+    else if (el.includes("khí") || el.includes("air")) elements.air++;
+    else if (el.includes("đất") || el.includes("earth")) elements.earth++;
+  });
+
+  const missingElements: string[] = [];
+  if (elements.fire === 0) missingElements.push("Lửa (Hành động & Ý chí)");
+  if (elements.water === 0) missingElements.push("Nước (Cảm xúc & Trực giác)");
+  if (elements.air === 0) missingElements.push("Khí (Tư duy & Phân tích)");
+  if (elements.earth === 0) missingElements.push("Đất (Thực tế & Nguồn lực)");
+
+  let dominantElement = "Đa nguyên tố cân bằng";
+  const maxEl = Math.max(elements.fire, elements.water, elements.air, elements.earth);
+  if (maxEl > 1) {
+    if (elements.fire === maxEl) dominantElement = "Lửa (Ý chí & Sức bật)";
+    else if (elements.water === maxEl) dominantElement = "Nước (Cảm xúc & Trực giác)";
+    else if (elements.air === maxEl) dominantElement = "Khí (Tư duy & Chiến lược)";
+    else if (elements.earth === maxEl) dominantElement = "Đất (Nền tảng & Kỷ luật)";
+  }
+
+  const totalTone = cards.reduce((acc, c) => {
+    const d = getCardDeepMeaning(c.name);
+    const baseTone = d?.tone ?? 1;
+    return acc + (c.isReversed ? -Math.abs(baseTone || 1) : baseTone);
+  }, 0);
+
+  const isChallenging = revCount >= Math.ceil(total / 2) || totalTone < 0;
+
+  // Catalyst card: highest tone upright card, or last card
+  let catalystCard = cards.find((c) => !c.isReversed) || cards[cards.length - 1] || cards[0];
+  const sortedPositive = [...cards]
+    .filter((c) => !c.isReversed)
+    .sort((a, b) => {
+      const toneA = getCardDeepMeaning(a.name)?.tone ?? 0;
+      const toneB = getCardDeepMeaning(b.name)?.tone ?? 0;
+      return toneB - toneA;
+    });
+  if (sortedPositive.length > 0) {
+    catalystCard = sortedPositive[0];
+  }
+
+  // Challenge card: lowest tone card or reversed card
+  let challengeCard: Required<RichCardInput> | undefined = cards.find((c) => c.isReversed);
+  const sortedNegative = [...cards].sort((a, b) => {
+    const toneA = (getCardDeepMeaning(a.name)?.tone ?? 0) * (a.isReversed ? -1 : 1);
+    const toneB = (getCardDeepMeaning(b.name)?.tone ?? 0) * (b.isReversed ? -1 : 1);
+    return toneA - toneB;
+  });
+  if (sortedNegative.length > 0 && (sortedNegative[0].isReversed || isChallenging)) {
+    challengeCard = sortedNegative[0];
+  }
+
+  return {
+    total,
+    revCount,
+    uprightCount,
+    majorCount,
+    minorCount,
+    elements,
+    dominantElement,
+    missingElements,
+    totalTone,
+    isChallenging,
+    catalystCard,
+    challengeCard,
+  };
+}
+
 export function buildSynthesisFallback(
   question: string,
   topic: string,
@@ -462,77 +584,127 @@ export function buildSynthesisFallback(
 ): string {
   const trimmedQuestion = question?.trim() || "";
   const effectiveQuestion =
-    trimmedQuestion || `bản chất thực tế của vấn đề ${topic.toLowerCase()} lúc này`;
+    trimmedQuestion || `định hướng thực tế cho vấn đề ${topic.toLowerCase()}`;
 
   const domainKey = getDomainKeyFromTopic(`${topic} ${effectiveQuestion}`);
-  const revCount = normalizedCards.filter((c) => c.isReversed).length;
-  const totalTone = normalizedCards.reduce((acc, c) => {
-    const d = getCardDeepMeaning(c.name);
-    const baseTone = d?.tone ?? 1;
-    return acc + (c.isReversed ? -Math.abs(baseTone || 1) : baseTone);
-  }, 0);
-  const isChallenging =
-    revCount >= Math.ceil(normalizedCards.length / 2) || totalTone < 0;
+  const dynamics = analyzeSpreadDynamics(normalizedCards);
+  const { total, revCount, majorCount, isChallenging, catalystCard, challengeCard, missingElements } = dynamics;
 
-  const firstCard = normalizedCards[0];
-  const lastCard = normalizedCards[normalizedCards.length - 1] || firstCard;
-  const middleCards = normalizedCards.slice(1, -1);
-
-  const dynamicMetaphor = firstCard
-    ? buildDynamicSymbolMetaphor(firstCard, topic)
-    : `trạng thái các lá bài hiện tại đang phản ánh trực diện thực tế của bạn`;
-
-  const cardsAnalysis = normalizedCards
-    .map((c, idx) => {
-      const cardTitle = getCleanVietnameseCardTitle(c);
-      const pos = c.isReversed ? "lật ngược" : "mở xuôi";
-      const domainMeaning = getCleanDomainMeaningForCard(c, domainKey);
-
-      if (idx === 0) {
-        return `Ngay từ vị trí mở đầu, lá ${cardTitle} ${pos} đã chỉ thẳng vào gốc rễ vấn đề: ${lowerFirstForClause(domainMeaning)}`;
-      }
-      if (idx === normalizedCards.length - 1 && normalizedCards.length > 1) {
-        return `Điểm hội tụ ở lá ${cardTitle} ${pos} khép lại mạch diễn biến bằng một thực tế rõ ràng: ${lowerFirstForClause(domainMeaning)}`;
-      }
-      return `Sự chuyển tiếp sang lá ${cardTitle} ${pos} làm sáng tỏ thêm cục diện hiện tại: ${lowerFirstForClause(domainMeaning)}`;
-    })
-    .join(" ");
-
-  const concreteAdvice = getCleanAdviceForCard(lastCard || firstCard);
-  const firstAdvice = firstCard ? getCleanAdviceForCard(firstCard) : "";
-  const middleAdvice =
-    middleCards.length > 0 ? getCleanAdviceForCard(middleCards[0]) : "";
   const askIsYesNo = isYesNoQuestion(trimmedQuestion);
+  const catalystTitle = getCleanVietnameseCardTitle(catalystCard);
+  const catalystAdvice = getCleanAdviceForCard(catalystCard);
 
-  if (isChallenging) {
-    const openingVerdict = askIsYesNo
-      ? `Trả lời thẳng vào câu hỏi "${effectiveQuestion}" của bạn: Không, ở thời điểm hiện tại mọi thứ chưa thể vận hành theo chiều hướng bạn mong muốn, bởi đang tồn tại độ lệch rõ rệt giữa kỳ vọng chủ quan và điều kiện thực tế.`
-      : `Đi thẳng vào trọng tâm câu hỏi "${effectiveQuestion}" của bạn: trải bài đang phát đi tín hiệu cảnh báo về những lực cản thực tế và điểm nghẽn năng lượng cần được tháo gỡ tận gốc trước khi muốn tiến xa hơn.`;
-
-    const part1 = `${openingVerdict} Nhìn lên bàn trải bài, ${dynamicMetaphor}. ${cardsAnalysis}`;
-
-    const part2 = `Để xoay chuyển cục diện này, bạn cần dừng ngay việc tiêu hao tâm sức vào những yếu tố nằm ngoài tầm kiểm soát và rà soát lại toàn bộ kế hoạch một cách thực tế nhất. Trọng tâm hành động lúc này từ lá ${getCleanVietnameseCardTitle(lastCard || firstCard)} là ${lowerFirstForClause(concreteAdvice)}${
-      middleCards.length > 0 && middleAdvice
-        ? ` Đồng thời, xét từ vị trí của lá ${getCleanVietnameseCardTitle(middleCards[0])}, ${lowerFirstForClause(middleAdvice)}`
-        : ""
-    } Khi bạn nhìn thẳng vào sự thật hiển hiện trên bàn bài và chủ động điều chỉnh chiến lược, bạn sẽ từng bước lấy lại quyền làm chủ tình thế.`;
-
-    return `${part1}\n\n${part2}`;
+  // 1. THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT
+  let coreVerdict = "";
+  if (askIsYesNo) {
+    if (isChallenging) {
+      coreVerdict = `Phán quyết trực diện cho câu hỏi "${effectiveQuestion}": KHÔNG. Ở thời điểm hiện tại, các điều kiện thực tế chưa ủng hộ để việc này diễn ra như mong đợi của bạn. Cục diện đang chịu sức ép từ những biến số chưa được xử lý dứt điểm.`;
+    } else if (revCount > 0) {
+      coreVerdict = `Phán quyết trực diện cho câu hỏi "${effectiveQuestion}": CÓ, NHƯNG ĐI KÈM ĐIỀU KIỆN TIÊN QUYẾT. Cơ hội thành công hoàn toàn khả thi, với điều kiện bạn phải chủ động kiểm soát chặt chẽ điểm nghẽn và không được hành động theo cảm tính chủ quan.`;
+    } else {
+      coreVerdict = `Phán quyết trực diện cho câu hỏi "${effectiveQuestion}": CÓ. Tổ hợp bài trên bàn mở ra một quỹ đạo rất sáng và thuận chiều, xác nhận bạn đang nắm giữ đầy đủ thiên thời và nền tảng để đạt được kết quả như ý.`;
+    }
   } else {
-    const openingVerdict = askIsYesNo
-      ? `Trả lời trực diện cho câu hỏi "${effectiveQuestion}" của bạn: Có, tín hiệu từ trải bài xác nhận hướng đi này hoàn toàn có cơ sở thực tế để đạt được kết quả tích cực, với điều kiện bạn chủ động nắm quyền thực thi.`
-      : `Đi thẳng vào trọng tâm câu hỏi "${effectiveQuestion}" của bạn: các lá bài mở ra một cục diện thuận lợi, xác nhận bạn đang có đủ nền tảng và thời cơ thực tế để hiện thực hóa mục tiêu trong chủ đề ${topic.toLowerCase()}.`;
-
-    const part1 = `${openingVerdict} Trên mặt bàn lúc này, ${dynamicMetaphor}. ${cardsAnalysis}`;
-
-    const part2 = `Tuy nhiên, một trải bài thuận lợi chỉ thực sự kết tinh thành quả khi đi kèm kỷ luật hành động cụ thể. Để chuyển hóa tiềm năng của lá ${getCleanVietnameseCardTitle(lastCard || firstCard)} thành giá trị thực tế, bạn hãy thực hiện ngay: ${lowerFirstForClause(concreteAdvice)}${
-      firstCard && firstCard.name !== lastCard?.name && firstAdvice
-        ? ` Bên cạnh đó, hãy giữ vững nguyên tắc từ lá mở đầu ${getCleanVietnameseCardTitle(firstCard)}: ${lowerFirstForClause(firstAdvice)}`
-        : ""
-    } Hãy giữ cái đầu tỉnh táo, đôi chân bám sát thực tại và dứt khoát triển khai kế hoạch của bạn.`;
-
-    return `${part1}\n\n${part2}`;
+    if (isChallenging) {
+      coreVerdict = `Thông điệp cốt lõi cho câu hỏi "${effectiveQuestion}": CẢNH BÁO TÁI CƠ CẤU. Cục diện trong chủ đề ${topic.toLowerCase()} đang phát đi tín hiệu bước ngoặt nghiêm khắc: bạn không thể tiếp tục dùng tư duy cũ để giải quyết bài toán hiện tại. Năng lượng trải bài đòi hỏi một cuộc dọn dẹp và điều chỉnh chiến lược tận gốc rễ.`;
+    } else {
+      coreVerdict = `Thông điệp cốt lõi cho câu hỏi "${effectiveQuestion}": THỜI CƠ BỨT PHÁ VỮNG VÀNG. Bức tranh tổng thể xác nhận bạn đang có sự hậu thuẫn mạnh mẽ từ các điều kiện thực tế. Rào cản duy nhất lúc này chỉ còn là tốc độ hành động và tính kỷ luật của chính bạn.`;
+    }
   }
+
+  // 2. BỨC TRANH TOÀN CẢNH & SỢI DÂY LIÊN KẾT BỘ BÀI
+  let macroAnalysis = "";
+  if (majorCount >= Math.ceil(total / 2)) {
+    macroAnalysis += `Xét trên toàn cục, sự áp đảo của các lá Ẩn Chính (${majorCount}/${total} lá) nhấn mạnh rằng tình huống bạn đang đối diện mang tầm vóc một bước ngoặt lớn về nhận thức và bài học quy luật cuộc đời, vượt trên những biến động nhỏ nhặt thông thường. `;
+  } else {
+    macroAnalysis += `Mật độ Ẩn Phụ chiếm đa số (${dynamics.minorCount}/${total} lá) cho thấy chìa khóa thành bại gắn liền với những chuyển động thực tế hàng ngày — kết quả hoàn toàn nằm trong tầm tay nếu bạn điều chỉnh thói quen và cách thức thực thi cụ thể. `;
+  }
+
+  if (missingElements.length > 0) {
+    if (missingElements.some((e) => e.includes("Đất"))) {
+      macroAnalysis += `Đáng chú ý, trải bài hoàn toàn khuyết thiếu nguyên tố Đất, cảnh báo rằng dù ý tưởng và khát vọng của bạn rất dồi dào, bạn đang thiếu đi kế hoạch thực thi từng bước có thể đo lường được trên thực tế. `;
+    } else if (missingElements.some((e) => e.includes("Lửa"))) {
+      macroAnalysis += `Sự vắng bóng của nguyên tố Lửa cho thấy bạn đang quá thận trọng hoặc do dự, thiếu đi ngọn lửa dứt khoát để biến những toan tính thành hành động cụ thể. `;
+    } else if (missingElements.some((e) => e.includes("Nước"))) {
+      macroAnalysis += `Trải bài khuyết thiếu nguyên tố Nước, nhắc nhở bạn đang xử lý vấn đề một cách quá cơ học, cần bổ sung sự đồng cảm và lắng nghe trực giác để không tạo ra căng thẳng ngầm. `;
+    } else if (missingElements.some((e) => e.includes("Khí"))) {
+      macroAnalysis += `Sự thiếu hụt nguyên tố Khí phản ánh bạn đang để cảm xúc và áp lực chi phối, cần lùi lại một bước để quan sát khách quan với cái đầu lạnh. `;
+    }
+  }
+
+  // Xâu chuỗi nhân quả liên hoàn giữa các lá bài
+  let narrativeChain = "";
+  if (total === 1) {
+    const c0 = normalizedCards[0];
+    const title0 = getCleanVietnameseCardTitle(c0);
+    const domain0 = getCleanDomainMeaningForCard(c0, domainKey);
+    narrativeChain = `Lá bài ${title0} ${c0.isReversed ? "lật ngược" : "mở xuôi"} đứng ở vị trí trung tâm phản chiếu trọn vẹn bản chất của vấn đề: ${lowerFirstForClause(domain0)}. Toàn bộ năng lượng hội tụ vào lá bài này đòi hỏi bạn phải nhìn thẳng vào sự thật hiển hiện trước mắt để đưa ra lựa chọn rõ ràng.`;
+  } else if (total === 2) {
+    const c0 = normalizedCards[0];
+    const c1 = normalizedCards[1];
+    const title0 = getCleanVietnameseCardTitle(c0);
+    const title1 = getCleanVietnameseCardTitle(c1);
+    const domain0 = getCleanDomainMeaningForCard(c0, domainKey);
+    const domain1 = getCleanDomainMeaningForCard(c1, domainKey);
+    narrativeChain = `Mối liên kết giữa hai lá bài tạo nên một trục đối trọng nhân quả rất rõ nét: Lá mở đầu ${title0} ${c0.isReversed ? "lật ngược" : "mở xuôi"} xác lập hiện trạng gốc rễ (${lowerFirstForClause(domain0)}). Khi năng lượng này chạm tới lá thứ hai ${title1} ${c1.isReversed ? "lật ngược" : "mở xuôi"}, nó đặt ra một bước ngoặt tương tác trực tiếp (${lowerFirstForClause(domain1)}). Sự va chạm giữa nguyên tố ${c0.element} và ${c1.element} đòi hỏi bạn phải dùng đòn bẩy từ lá trước để mở đường cho lá sau.`;
+  } else if (total === 3) {
+    const c0 = normalizedCards[0];
+    const c1 = normalizedCards[1];
+    const c2 = normalizedCards[2];
+    const title0 = getCleanVietnameseCardTitle(c0);
+    const title1 = getCleanVietnameseCardTitle(c1);
+    const title2 = getCleanVietnameseCardTitle(c2);
+    const domain0 = getCleanDomainMeaningForCard(c0, domainKey);
+    const domain1 = getCleanDomainMeaningForCard(c1, domainKey);
+    const domain2 = getCleanDomainMeaningForCard(c2, domainKey);
+    narrativeChain = `Sợi dây liên kết xuyên suốt ba lá bài phác họa một chuỗi nhân quả mạch lạc: Khởi phát từ nền tảng của ${title0} (${c0.isReversed ? "lật ngược" : "mở xuôi"}) — nơi ${lowerFirstForClause(domain0)} đặt nền móng ban đầu. Tuy nhiên, khi chuyển biến sang lá thứ hai ${title1} (${c1.isReversed ? "lật ngược" : "mở xuôi"}), cục diện xuất hiện một bước ngoặt va đập lớn: ${lowerFirstForClause(domain1)}. Đây chính là mắt xích bản lề quyết định toàn bộ trải bài. Chỉ khi bạn tháo gỡ được bài toán ở lá thứ hai này, đích đến tại lá thứ ba ${title2} (${c2.isReversed ? "lật ngược" : "mở xuôi"}) mới có thể kết tinh thành quả: ${lowerFirstForClause(domain2)}.`;
+  } else {
+    const cFirst = normalizedCards[0];
+    const cLast = normalizedCards[normalizedCards.length - 1];
+    const titleFirst = getCleanVietnameseCardTitle(cFirst);
+    const titleLast = getCleanVietnameseCardTitle(cLast);
+    const domainFirst = getCleanDomainMeaningForCard(cFirst, domainKey);
+    const domainLast = getCleanDomainMeaningForCard(cLast, domainKey);
+    const middleRev = normalizedCards.slice(1, -1).find((c) => c.isReversed);
+
+    narrativeChain = `Các lá bài tạo thành một dòng chảy nhân quả liên hoàn: xuất phát từ gốc rễ tại ${titleFirst} (${lowerFirstForClause(domainFirst)}) và hướng thẳng tới đích đến tại ${titleLast} (${lowerFirstForClause(domainLast)}). ${
+      middleRev
+        ? `Điểm nghẽn năng lượng then chốt đang nằm ở lá ${getCleanVietnameseCardTitle(middleRev)} ở thế lật ngược — đây là nút thắt bạn bắt buộc phải gỡ bỏ trước khi muốn tiến sang các chặng tiếp theo.`
+        : `Dòng chảy giữa các lá bài diễn ra tương đối thuận chiều, nơi mỗi mắt xích đều là bước đệm gia tốc đưa bạn đến kết quả cuối cùng.`
+    }`;
+  }
+
+  const catalystMention = `Trong toàn bộ tổ hợp này, lá bài nắm giữ 'chìa khóa bản lề' là **${catalystTitle}** — đây là điểm tựa thực tế vững vàng nhất bạn cần bám sát để làm chủ tình thế.`;
+
+  // 3. CHIẾN LƯỢC HÀNH ĐỘNG DỨT KHOÁT (DO / DON'T)
+  const doAction = `Tập trung toàn lực vào thông điệp hành động từ lá ${catalystTitle}: ${lowerFirstForClause(catalystAdvice)}`;
+  let dontAction = "";
+  if (challengeCard) {
+    const challengeTitle = getCleanVietnameseCardTitle(challengeCard);
+    dontAction = challengeCard.isReversed
+      ? `Tuyệt đối tránh cạm bẫy từ lá ${challengeTitle} đang lật ngược: không để sự trì trệ, nghi ngờ bản thân hoặc ảo tưởng kiểm soát làm bạn chệch hướng khỏi mục tiêu ban đầu.`
+      : `Tuyệt đối tránh sự nôn nóng, đốt cháy giai đoạn hoặc đưa ra quyết định khi chưa nắm chắc các điều kiện thực tế từ lá ${challengeTitle}.`;
+  } else {
+    dontAction = `Tuyệt đối tránh tâm lý chủ quan, tự mãn hoặc trông chờ vào may mắn thụ động khi cục diện đang mở ra thuận lợi.`;
+  }
+
+  // 4. LỜI ĐÚC KẾT THỨC TỈNH
+  const reflectiveSpark = isChallenging
+    ? `Nghịch cảnh trên bàn bài không sinh ra để cản bước bạn, mà để bóc tách những điều không còn phù hợp; hãy làm chủ tâm thế và kiên quyết hành động.`
+    : `Thời cơ chỉ thực sự biến thành thành tựu khi bạn đặt xuống sự do dự và bắt tay vào hành động với kỷ luật thép.`;
+
+  return `### ✦ THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT
+${coreVerdict}
+
+### ✦ BỨC TRANH TOÀN CẢNH & SỢI DÂY LIÊN KẾT BỘ BÀI
+${macroAnalysis}${narrativeChain} ${catalystMention}
+
+### ✦ CHIẾN LƯỢC HÀNH ĐỘNG DỨT KHOÁT
+- **Việc cần làm ngay (Do):** ${doAction}
+- **Điều tuyệt đối nên tránh (Don't):** ${dontAction}
+
+### ✦ LỜI ĐÚC KẾT THỨC TỈNH
+"${reflectiveSpark}"`;
 }
 
 export function buildContextualChatFallback(
@@ -554,8 +726,10 @@ export function buildContextualChatFallback(
   const mentionedCards = findMentionedCards(activeQuery, normalizedCards);
   const intent = detectChatQuestionIntent(activeQuery, mentionedCards);
 
+  const dynamics = analyzeSpreadDynamics(normalizedCards);
   const firstCard = normalizedCards[0];
   const lastCard = normalizedCards[normalizedCards.length - 1] || firstCard;
+  const catalystTitle = getCleanVietnameseCardTitle(dynamics.catalystCard);
 
   if (intent === "action_7_days") {
     const targetCard = mentionedCards[0] || firstCard;
@@ -563,7 +737,7 @@ export function buildContextualChatFallback(
       normalizedCards.find((c) => c.name !== targetCard.name) || lastCard;
     const targetTitle = getCleanVietnameseCardTitle(targetCard);
     const supportTitle = getCleanVietnameseCardTitle(supportCard);
-    const targetPos = targetCard.isReversed ? "đang lật ngược" : "đang mở xuôi";
+    const targetPos = targetCard.isReversed ? "lật ngược" : "mở xuôi";
     const targetMeaning = getCleanDomainMeaningForCard(targetCard, domainKey);
     const targetAdvice = getCleanAdviceForCard(targetCard);
     const supportAdvice = getCleanAdviceForCard(supportCard);
@@ -576,21 +750,26 @@ export function buildContextualChatFallback(
     const focusKw =
       keywords.length > 0
         ? keywords.map((k) => k.toLowerCase()).join(", ")
-        : "tập trung thực thi";
+        : "tập trung thực thi kỷ luật";
 
-    const part1 = `Đi thẳng vào lộ trình hành động 7 ngày tới theo chỉ dẫn của lá ${targetTitle} ${targetPos}: từ khóa trọng tâm bạn cần bám sát trong tuần này là ${focusKw} xoay quanh vấn đề ${topic.toLowerCase()}. Lá bài chỉ rõ rằng ${lowerFirstForClause(targetMeaning)} Do đó, trong Giai đoạn Ngày 1 - Ngày 2 về Nhận diện và Dọn dẹp nền tảng, việc đầu tiên bạn phải làm ngay là rà soát lại toàn bộ hiện trạng: ${
+    return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Lộ trình 7 ngày tới theo chỉ dẫn của lá ${targetTitle} (${targetPos}): Từ khóa tối thượng bạn cần bám sát trong tuần này là "${focusKw}" xoay quanh chủ đề ${topic.toLowerCase()}. Lá bài chỉ rõ rằng ${lowerFirstForClause(targetMeaning)} Đây là giai đoạn đòi hỏi tính kỷ luật cao độ để chuyển hóa nhận thức thành kết quả hữu hình.
+
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Trong cấu trúc toàn bộ trải bài, lá ${targetTitle} không vận hành đơn lẻ mà gắn chặt với sự điều phối từ lá ${supportTitle} (${supportCard.isReversed ? "lật ngược" : "mở xuôi"}). Sự kết hợp giữa nguyên tố ${targetCard.element} và ${supportCard.element} nhắc nhở bạn: hãy lấy bài học của lá ${targetTitle} làm mũi nhọn đột phá, đồng thời dùng ${supportTitle} làm tấm lưới bảo hiểm kiểm soát rủi ro.
+
+### ✦ LỘ TRÌNH THỰC THI 7 NGÀY
+- **Giai đoạn Ngày 1 - 2 (Rà soát & Dọn dẹp):** ${
       targetCard.isReversed
-        ? `khoanh vùng những điểm đang gây trì trệ, cắt bỏ các tác vụ hoặc kỳ vọng lan man đang làm phân tán năng lượng nguyên tố ${targetCard.element} của bạn.`
-        : `xác lập mục tiêu ưu tiên số một dựa trên nguồn lực nguyên tố ${targetCard.element} sẵn có và chuẩn bị đầy đủ các điều kiện thực tế trước khi tăng tốc.`
-    }`;
-
-    const part2 = `Bước sang Giai đoạn Ngày 3 - Ngày 5 về Hành động trọng tâm, bạn hãy thực thi dứt khoát thông điệp cốt lõi từ lá ${targetTitle}: ${lowerFirstForClause(targetAdvice)}${
+        ? `Khoanh vùng ngay những mắt xích đang gây trì trệ, dứt khoát cắt bỏ các kỳ vọng lan man làm phân tán nguồn lực nguyên tố ${targetCard.element}.`
+        : `Xác lập mục tiêu ưu tiên số một dựa trên lợi thế nguyên tố ${targetCard.element} sẵn có và chuẩn bị đầy đủ các điều kiện thực tế trước khi tăng tốc.`
+    }
+- **Giai đoạn Ngày 3 - 5 (Hành động trọng tâm):** Thực thi dứt khoát chỉ dẫn từ lá ${targetTitle}: ${lowerFirstForClause(targetAdvice)}${
       supportCard && supportCard.name !== targetCard.name
-        ? ` Đồng thời, kết hợp thêm nhịp điều phối từ lá ${supportTitle} trên bàn bài: ${lowerFirstForClause(supportAdvice)}`
+        ? ` Đồng thời kết hợp nguyên tắc của ${supportTitle}: ${lowerFirstForClause(supportAdvice)}`
         : ""
-    } Đến Giai đoạn Ngày 6 - Ngày 7 về Củng cố và Đánh giá thực tế, hãy nghiệm thu kết quả dựa trên những chuyển biến đo đếm được thay vì cảm tính, khóa lại các hạng mục đã hoàn tất và chuẩn bị nền tảng vững chắc cho chu kỳ tiếp theo.`;
-
-    return `${part1}\n\n${part2}`;
+    }
+- **Giai đoạn Ngày 6 - 7 (Nghiệm thu & Đóng gói):** Đánh giá kết quả dựa trên các chỉ số chuyển biến đo đếm được thay vì cảm tính chủ quan, khóa lại các hạng mục đã hoàn tất để chuẩn bị cho chu kỳ tiếp theo.`;
   }
 
   if (intent === "reversed_remedy") {
@@ -603,14 +782,18 @@ export function buildContextualChatFallback(
       const watchMeaning = getCleanDomainMeaningForCard(watchCard, domainKey);
       const watchAdvice = getCleanAdviceForCard(watchCard);
 
-      const part1 = `Quan sát trực diện trên bàn trải bài hiện tại, toàn bộ ${normalizedCards.length} lá bài của bạn đều đang mở xuôi và không có lá bài nào nằm ngược. Điều này khẳng định dòng chảy năng lượng trong chuyện ${topic.toLowerCase()} không bị tắc nghẽn ngầm hay đảo chiều. Tuy nhiên, điểm bạn cần lưu tâm nhất để phòng ngừa rủi ro nằm ở lá ${watchTitle}: ${lowerFirstForClause(watchMeaning)}`;
+      return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Quan sát trên bàn trải bài, toàn bộ ${normalizedCards.length} lá bài của bạn đều đang ở thế MỞ XUÔI. Điều này khẳng định dòng chảy năng lượng trong câu chuyện ${topic.toLowerCase()} không bị tắc nghẽn hay đảo chiều ngầm. Tuy nhiên, lá bài bạn cần lưu tâm nhất để giữ thế phòng thủ chủ động là ${watchTitle}: ${lowerFirstForClause(watchMeaning)}
 
-      const part2 = `Cách tốt nhất để giữ vững thế chủ động và ngăn năng lượng thuận lợi này chuyển hóa thành sự chủ quan là thực hiện nghiêm túc lời khuyên từ lá ${watchTitle}: ${lowerFirstForClause(watchAdvice)} Hãy duy trì kỷ luật kiểm tra thực tế định kỳ để bảo toàn trọn vẹn thành quả của bạn.`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Sự đồng thuận của toàn bộ các lá bài mở xuôi tạo ra một thế trận rất thuận lợi, nhưng cạm bẫy lớn nhất của trạng thái này chính là sự chủ quan. Dòng năng lượng chỉ thực sự duy trì được sự hanh thông khi các mắt xích hỗ trợ lẫn nhau một cách nhịp nhàng.
 
-      return `${part1}\n\n${part2}`;
+### ✦ CHIẾN LƯỢC DUY TRÌ & PHÒNG NGỪA RỦI RO
+- **Việc cần làm ngay (Do):** Thực hiện nghiêm túc lời khuyên từ lá ${watchTitle}: ${lowerFirstForClause(watchAdvice)}
+- **Điều tuyệt đối nên tránh (Don't):** Tránh ngủ quên trên thuận lợi ban đầu hoặc vội vàng mở rộng quy mô khi chưa kiểm tra độ bền của nền móng thực tế.`;
     }
 
-    const revNamesList = reversedCards
+    const revListText = reversedCards
       .map((c) => `${getCleanVietnameseCardTitle(c)} ở vị trí ${c.slotLabel.toLowerCase()}`)
       .join(", ");
 
@@ -618,7 +801,7 @@ export function buildContextualChatFallback(
       .map((c) => {
         const title = getCleanVietnameseCardTitle(c);
         const revMeaning = getCleanDomainMeaningForCard(c, domainKey);
-        return `Tại lá ${title} đang lật ngược, nguyên nhân nghẽn năng lượng nguyên tố ${c.element} xuất phát từ việc ${lowerFirstForClause(revMeaning)}`;
+        return `Tại lá ${title} (${c.element}), nút thắt xuất phát từ: ${lowerFirstForClause(revMeaning)}`;
       })
       .join(" ");
 
@@ -626,20 +809,23 @@ export function buildContextualChatFallback(
       .map((c) => {
         const title = getCleanVietnameseCardTitle(c);
         const advice = getCleanAdviceForCard(c);
-        return `Để hóa giải trực tiếp nút thắt của lá ${title}, bạn cần chỉnh lại trục hành động bằng cách: ${lowerFirstForClause(advice)}`;
+        return `Để hóa giải lá ${title}: ${lowerFirstForClause(advice)}`;
       })
       .join(" ");
 
-    const anchorSupport =
+    return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Thách thức cần tháo gỡ nằm đích danh ở ${reversedCards.length} lá bài đang lật ngược: ${revListText}. Bản chất của lá bài ngược không phải là điềm gở bất biến, mà là tín hiệu cảnh báo năng lượng đang bị dồn nén sai cách hoặc vượt quá ngưỡng kiểm soát. ${blockageDetails}
+
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Các lá bài ngược này đang kìm hãm dòng chảy chung của trải bài. ${
       uprightCards.length > 0
-        ? ` Đặc biệt, hãy tận dụng điểm tựa vững chắc từ lá bài mở xuôi ${getCleanVietnameseCardTitle(uprightCards[0])} trên bàn làm đòn bẩy cân bằng: ${lowerFirstForClause(getCleanAdviceForCard(uprightCards[0]))}`
-        : ` Khi bạn chủ động tháo gỡ từng điểm nghẽn theo đúng thứ tự ưu tiên thay vì ôm đồm cùng lúc, dòng năng lượng trên bàn bài sẽ tự khắc thông suốt trở lại.`;
+        ? `Rất may mắn, bạn đang có điểm tựa cân bằng cực kỳ vững chắc từ lá bài mở xuôi ${getCleanVietnameseCardTitle(uprightCards[0])} (${uprightCards[0].element}): ${lowerFirstForClause(getCleanAdviceForCard(uprightCards[0]))}. Hãy dùng chính lá xuôi này làm đòn bẩy kéo các mắt xích ngược trở lại quỹ đạo.`
+        : `Toàn bộ năng lượng đang đòi hỏi bạn phải tiến hành một cuộc đại tu nhận thức toàn diện, dọn sạch sự bế tắc nội tâm trước khi muốn tái khởi động hành động.`
+    }
 
-    const part1 = `Trong trải bài này, thách thức cần hóa giải nằm đích danh ở ${reversedCards.length} lá bài đang lật ngược gồm: ${revNamesList}. Bản chất của lá bài ngược không phải là vận xui bất biến, mà là tín hiệu báo động năng lượng đang bị dùng quá đà hoặc bị kìm nén sai cách. ${blockageDetails}`;
-
-    const part2 = `Phác đồ hóa giải thực tế cho bạn bắt đầu từ việc điều chỉnh lại chính các mắt xích đang lệch nhịp đó. ${remedyDetails}${anchorSupport}`;
-
-    return `${part1}\n\n${part2}`;
+### ✦ PHÁC ĐỒ HÓA GIẢI DỨT ĐIỂM
+- **Giải pháp cho các lá ngược:** ${remedyDetails}
+- **Nguyên tắc cốt tử:** Không ôm đồm xử lý cùng lúc; hãy chọn mắt xích yếu nhất để tháo gỡ trước, năng lượng các lá bài còn lại sẽ tự khắc thông suốt theo hiệu ứng dây chuyền.`;
   }
 
   if (intent === "card_connection_turning_point") {
@@ -650,30 +836,21 @@ export function buildContextualChatFallback(
       lastCard;
     const titleA = getCleanVietnameseCardTitle(cardA);
     const titleB = getCleanVietnameseCardTitle(cardB);
-    const posA = cardA.isReversed ? "đang lật ngược" : "đang mở xuôi";
-    const posB = cardB.isReversed ? "đang lật ngược" : "đang mở xuôi";
     const meaningA = getCleanDomainMeaningForCard(cardA, domainKey);
     const meaningB = getCleanDomainMeaningForCard(cardB, domainKey);
     const adviceA = getCleanAdviceForCard(cardA);
     const adviceB = getCleanAdviceForCard(cardB);
     const elementShift = analyzeElementTransition(cardA.element, cardB.element);
 
-    const middleBridge =
-      normalizedCards.length > 2
-        ? normalizedCards.find(
-            (c) => c.name !== cardA.name && c.name !== cardB.name
-          )
-        : undefined;
+    return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Sự kết nối giữa ${titleA} (${cardA.isReversed ? "lật ngược" : "mở xuôi"}) và ${titleB} (${cardB.isReversed ? "lật ngược" : "mở xuôi"}) báo hiệu một bước ngoặt chuyển pha rất quan trọng: ${elementShift}. Đây là hành trình dịch chuyển từ trạng thái "${lowerFirstForClause(meaningA)}" sang một ngưỡng cục diện hoàn toàn mới: "${lowerFirstForClause(meaningB)}".
 
-    const part1 = `Sự kết nối giữa lá ${titleA} ${posA} và lá ${titleB} ${posB} phác họa một bước ngoặt chuyển pha rất rõ nét trong câu chuyện ${topic.toLowerCase()} của bạn: đó là ${elementShift}. Nếu ở chặng đầu, lá ${titleA} phản ánh trạng thái ${lowerFirstForClause(meaningA)} Thì khi dịch chuyển sang lá ${titleB}, cục diện sẽ xoay sang một ngưỡng mới nơi ${lowerFirstForClause(meaningB)}${
-      middleBridge
-        ? ` Quá trình chuyển giao này đi qua cầu nối là lá ${getCleanVietnameseCardTitle(middleBridge)}, đòi hỏi bạn không được đốt cháy giai đoạn.`
-        : ""
-    }`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Bước ngoặt giữa hai lá bài này không diễn ra đột ngột mà là kết quả tất yếu của quy luật nhân quả: những gì bạn gieo và tích lũy tại ${titleA} chính là chiếc chìa khóa định hình xem ${titleB} sẽ nở hoa hay biến thành áp lực. Nếu ${cardA.isReversed ? "bạn sớm tháo gỡ sự lệch nhịp ở lá đầu" : "bạn duy trì được thế chủ động từ lá đầu"}, bạn sẽ đón nhận trọn vẹn tiềm năng của lá sau mà không bị ngợp.
 
-    const part2 = `Để đón đầu bước ngoặt từ lá ${titleA} sang lá ${titleB} một cách chủ động nhất, bạn cần kết hợp nhịp nhàng hai bước chiến lược. Trước hết, hãy hoàn tất bài học nền tảng tại ${titleA}: ${lowerFirstForClause(adviceA)} Ngay khi tín hiệu chuyển dịch xuất hiện, hãy lập tức áp dụng nguyên tắc hành động của ${titleB}: ${lowerFirstForClause(adviceB)} Sự chuẩn bị sẵn sàng về cả tâm thế lẫn phương án thực thi sẽ giúp bạn biến bước ngoặt này thành bàn đạp bứt phá thực sự.`;
-
-    return `${part1}\n\n${part2}`;
+### ✦ CHIẾN LƯỢC ĐÓN ĐẦU BƯỚC NGOẶT
+- **Bước 1 (Hoàn tất bài học hiện tại):** Áp dụng ngay nguyên tắc của ${titleA}: ${lowerFirstForClause(adviceA)}
+- **Bước 2 (Chuyển pha dứt khoát):** Khi nhận diện tín hiệu chuyển biến, lập tức kích hoạt chiến lược của ${titleB}: ${lowerFirstForClause(adviceB)} Tránh chần chừ bám víu vào sự an toàn cũ khi thời khắc chuyển giao đã đến.`;
   }
 
   if (intent === "feelings_mindset") {
@@ -681,81 +858,76 @@ export function buildContextualChatFallback(
     const secondaryCard =
       normalizedCards.find((c) => c.name !== primaryCard.name) || lastCard;
     const primaryDeep = getCardDeepMeaning(primaryCard.name);
-    const secondaryDeep = getCardDeepMeaning(secondaryCard.name);
-
     const personTrait = sanitizeTarotText(
       primaryDeep?.person ||
         `Người mang năng lượng nguyên tố ${primaryCard.element} với nội tâm thể hiện qua lá ${primaryCard.name}`
     );
     const loveMeaningPrimary = getCleanDomainMeaningForCard(primaryCard, "love");
-    const loveMeaningSecondary = getCleanDomainMeaningForCard(
-      secondaryCard,
-      "love"
-    );
+    const loveMeaningSecondary = getCleanDomainMeaningForCard(secondaryCard, "love");
     const advicePrimary = getCleanAdviceForCard(primaryCard);
 
-    const part1 = `Giải mã chiều sâu tâm lý cho câu hỏi "${activeQuery}" của bạn: hình ảnh lá ${getCleanVietnameseCardTitle(primaryCard)} ${primaryCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} cho thấy trạng thái nội tâm hiện tại của đối phương gắn liền với hình mẫu ${lowerFirstForClause(personTrait)} Trong suy nghĩ thực sự dành cho mối quan hệ này, ${lowerFirstForClause(loveMeaningPrimary)}${
+    return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Giải mã chiều sâu tâm lý cho câu hỏi "${activeQuery}": Hình ảnh lá ${getCleanVietnameseCardTitle(primaryCard)} (${primaryCard.isReversed ? "lật ngược" : "mở xuôi"}) cho thấy đối phương đang mang hình mẫu nội tâm gắn liền với ${lowerFirstForClause(personTrait)}. Trong suy nghĩ và cảm xúc thật sự dành cho câu chuyện này: ${lowerFirstForClause(loveMeaningPrimary)}${
       secondaryCard && secondaryCard.name !== primaryCard.name
-        ? ` Hơn nữa, lá ${getCleanVietnameseCardTitle(secondaryCard)} ${secondaryCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} tiết lộ thêm tầng cảm xúc sâu bên trong: ${lowerFirstForClause(loveMeaningSecondary)}`
-        : ""
-    }`;
+        ? `. Tầng cảm xúc sâu hơn được lá ${getCleanVietnameseCardTitle(secondaryCard)} hé lộ: ${lowerFirstForClause(loveMeaningSecondary)}.`
+        : "."
+    }
 
-    const part2 = `Trước thái độ và tần số cảm xúc đó, điều quan trọng nhất là bạn phải giữ được trục giá trị độc lập của chính mình thay vì đoán già đoán non. Cách ứng xử thông minh và thực tế nhất lúc này theo chỉ dẫn của lá ${getCleanVietnameseCardTitle(primaryCard)} là: ${lowerFirstForClause(advicePrimary)}${
-      secondaryDeep && secondaryCard.name !== primaryCard.name
-        ? ` Đồng thời, hãy lưu ý thêm thông điệp từ lá ${getCleanVietnameseCardTitle(secondaryCard)}: ${lowerFirstForClause(getCleanAdviceForCard(secondaryCard))}`
-        : ""
-    } Sự rõ ràng, thẳng thắn và tôn trọng ranh giới thực tế sẽ giúp bạn nhìn thấu thiện chí thực sự từ phía bên kia.`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Bức tranh cảm xúc này không hề tách biệt với thực tế bên ngoài. Sự tương tác giữa các lá bài cho thấy đối phương cũng đang chịu áp lực từ chính những giới hạn và kỳ vọng của bản thân. Mọi hành vi bên ngoài chỉ là tấm gương phản chiếu những giằng xé nội tâm chưa được giải tỏa.
 
-    return `${part1}\n\n${part2}`;
+### ✦ ĐỊNH HƯỚNG ỨNG XỬ THÔNG MINH
+- **Việc nên làm (Do):** Giữ vững trục giá trị độc lập của chính mình theo chỉ dẫn của lá ${getCleanVietnameseCardTitle(primaryCard)}: ${lowerFirstForClause(advicePrimary)}
+- **Điều nên tránh (Don't):** Tuyệt đối không đoán già đoán non, không hạ thấp ranh giới cá nhân hoặc cố tìm kiếm câu trả lời khi đối phương chưa sẵn sàng đối thoại thẳng thắn.`;
   }
 
   if (intent === "yes_no") {
-    const revCount = normalizedCards.filter((c) => c.isReversed).length;
-    const totalTone = normalizedCards.reduce((acc, c) => {
-      const d = getCardDeepMeaning(c.name);
-      const baseTone = d?.tone ?? 1;
-      return acc + (c.isReversed ? -Math.abs(baseTone || 1) : baseTone);
-    }, 0);
-    const isChallenging =
-      revCount >= Math.ceil(normalizedCards.length / 2) || totalTone < 0;
-
+    const { isChallenging, revCount } = dynamics;
     const focusCard = mentionedCards[0] || firstCard;
     const outcomeCard = lastCard || focusCard;
     const focusTitle = getCleanVietnameseCardTitle(focusCard);
     const outcomeTitle = getCleanVietnameseCardTitle(outcomeCard);
+    const focusMeaning = getCleanDomainMeaningForCard(focusCard, domainKey);
+    const outcomeMeaning = getCleanDomainMeaningForCard(outcomeCard, domainKey);
+    const outcomeAdvice = getCleanAdviceForCard(outcomeCard);
 
     if (isChallenging) {
-      const part1 = `Phán quyết trực diện cho câu hỏi "${activeQuery}" của bạn: Không, ở thời điểm hiện tại các điều kiện thực tế chưa ủng hộ để việc này diễn ra trôi chảy như kỳ vọng. Căn cứ trực tiếp nằm ở lá ${focusTitle} ${focusCard.isReversed ? "đang lật ngược" : "đang mở xuôi"}: ${lowerFirstForClause(getCleanDomainMeaningForCard(focusCard, domainKey))}${
+      return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Phán quyết trực diện cho câu hỏi "${activeQuery}": KHÔNG. Ở thời điểm hiện tại, các điều kiện thực tế và năng lượng các lá bài chưa ủng hộ để việc này diễn ra trôi chảy. Căn cứ cốt lõi nằm ở lá ${focusTitle} (${focusCard.isReversed ? "lật ngược" : "mở xuôi"}): ${lowerFirstForClause(focusMeaning)}${
         outcomeCard.name !== focusCard.name
-          ? ` Kết hợp với lá đích ${outcomeTitle} ${outcomeCard.isReversed ? "đang lật ngược" : "đang mở xuôi"}, bài cảnh báo rõ: ${lowerFirstForClause(getCleanDomainMeaningForCard(outcomeCard, domainKey))}`
+          ? `, kết hợp với lá kết ${outcomeTitle} cảnh báo rõ: ${lowerFirstForClause(outcomeMeaning)}`
           : ""
-      }`;
+      }.
 
-      const part2 = `Thay vì cố thúc ép một quyết định khi nền tảng còn nhiều rủi ro, bạn cần ưu tiên bảo toàn nguồn lực và xử lý dứt điểm nguyên nhân gốc rễ. Lời khuyên thiết thực nhất từ lá ${outcomeTitle} lúc này là: ${lowerFirstForClause(getCleanAdviceForCard(outcomeCard))} Chỉ khi bạn tháo gỡ xong các điều kiện bất lợi trên bàn bài, câu trả lời mới có thể xoay chuyển sang hướng tích cực.`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Sự liên kết giữa các lá bài chỉ rõ rằng câu trả lời "Không" lúc này không phải là dấu chấm hết, mà là một sự ngăn chặn kịp thời để bạn không đâm đầu vào ngõ cụt khi nguồn lực và tâm thế chưa sẵn sàng. Cố thúc ép kết quả vào lúc này sẽ chỉ làm gia tăng tổn thất.
 
-      return `${part1}\n\n${part2}`;
+### ✦ HÀNH ĐỘNG XOAY CHUYỂN CỤC DIỆN
+- **Việc cần làm ngay (Do):** Tạm dừng việc thúc ép, rà soát lại toàn bộ kế hoạch theo chỉ dẫn của lá ${outcomeTitle}: ${lowerFirstForClause(outcomeAdvice)}
+- **Điều tuyệt đối nên tránh (Don't):** Tránh tâm lý cay cú, nôn nóng "được ăn cả ngã về không" khi các tín hiệu rủi ro trên bàn bài vẫn chưa được vô hiệu hóa.`;
     }
 
-    const isConditional = revCount > 0 || totalTone === 0;
-    const verdictPrefix = isConditional
-      ? `Phán quyết trực diện cho câu hỏi "${activeQuery}" của bạn: Có, nhưng đi kèm điều kiện tiên quyết là bạn phải kiểm soát chặt các biến số thực tế.`
-      : `Phán quyết trực diện cho câu hỏi "${activeQuery}" của bạn: Có, tổ hợp bài trên bàn xác nhận tín hiệu rất khả quan và có đầy đủ cơ sở để thành công.`;
+    const isConditional = revCount > 0;
+    const verdictWord = isConditional
+      ? "CÓ, NHƯNG ĐI KÈM ĐIỀU KIỆN RÀNG BUỘC CHẶT CHẼ"
+      : "CÓ, TÍN HIỆU RẤT KHẢ QUAN VÀ THUẬN LỢI";
 
-    const part1 = `${verdictPrefix} Lá ${focusTitle} ${focusCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} cho thấy ${lowerFirstForClause(getCleanDomainMeaningForCard(focusCard, domainKey))}${
+    return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Phán quyết trực diện cho câu hỏi "${activeQuery}": ${verdictWord}. Lá bài trọng tâm ${focusTitle} (${focusCard.isReversed ? "lật ngược" : "mở xuôi"}) khẳng định: ${lowerFirstForClause(focusMeaning)}${
       outcomeCard.name !== focusCard.name
-        ? ` Và tại điểm kết, lá ${outcomeTitle} ${outcomeCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} củng cố thêm triển vọng này: ${lowerFirstForClause(getCleanDomainMeaningForCard(outcomeCard, domainKey))}`
-        : ""
-    }`;
+        ? `. Tại điểm hội tụ, lá ${outcomeTitle} củng cố thêm triển vọng: ${lowerFirstForClause(outcomeMeaning)}.`
+        : "."
+    }
 
-    const part2 = `Để khóa chặt kết quả tích cực này vào thực tế, bạn không được phép chủ quan mà cần bắt tay thực hiện ngay chỉ dẫn của lá ${outcomeTitle}: ${lowerFirstForClause(getCleanAdviceForCard(outcomeCard))}${
-      focusCard.name !== outcomeCard.name
-        ? ` Đồng thời, duy trì sự nhất quán từ lá ${focusTitle}: ${lowerFirstForClause(getCleanAdviceForCard(focusCard))}`
-        : ""
-    }`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Mối liên kết giữa các lá bài cho thấy dòng năng lượng đang mở ra một cửa sổ thời cơ tuyệt vời. Sự tương hỗ giữa ${focusTitle} và ${outcomeTitle} đảm bảo rằng mọi công sức bạn đầu tư vào chuyện này đều có cơ sở thực tế vững chắc để sinh lời và đơm hoa kết trái.
 
-    return `${part1}\n\n${part2}`;
+### ✦ CHIẾN LƯỢC KHÓA CHẶT THÀNH QUẢ
+- **Việc cần làm ngay (Do):** Triển khai quyết liệt thông điệp từ lá ${outcomeTitle}: ${lowerFirstForClause(outcomeAdvice)}
+- **Điều tuyệt đối nên tránh (Don't):** Tuyệt đối không được chủ quan, lơ là các chi tiết kỹ thuật hoặc để sự trì hoãn làm trôi qua thời điểm vàng.`;
   }
 
+  // Open custom question
   const targetCard = mentionedCards[0] || firstCard;
   const secondCard =
     mentionedCards[1] ||
@@ -769,19 +941,19 @@ export function buildContextualChatFallback(
   const targetAdvice = getCleanAdviceForCard(targetCard);
   const secondAdvice = getCleanAdviceForCard(secondCard);
 
-  const part1 = `Giải đáp trực diện câu hỏi "${activeQuery}" của bạn dựa trên các lá bài đang mở: trọng tâm câu trả lời nằm ở lá ${targetTitle} ${targetCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} thuộc nguyên tố ${targetCard.element}. Về mặt bản chất, ${lowerFirstForClause(targetEssence)} Đặt trực tiếp vào góc độ bạn đang truy vấn, lá bài chỉ rõ: ${lowerFirstForClause(targetMeaning)}${
+  return `### ✦ TRỌNG TÂM GIẢI ĐÁP
+Giải đáp trực diện câu hỏi "${activeQuery}" của bạn: Trọng tâm câu trả lời hội tụ ở lá ${targetTitle} (${targetCard.isReversed ? "lật ngược" : "mở xuôi"}) thuộc nguyên tố ${targetCard.element}. Bản chất cốt lõi: ${lowerFirstForClause(targetEssence)}. Đặt trực tiếp vào góc độ bạn đang truy vấn, lá bài chỉ rõ: ${lowerFirstForClause(targetMeaning)}${
     secondCard && secondCard.name !== targetCard.name
-      ? ` Bên cạnh đó, sự hiện diện của lá ${secondTitle} ${secondCard.isReversed ? "đang lật ngược" : "đang mở xuôi"} bổ sung thêm một dữ kiện quan trọng: ${lowerFirstForClause(secondMeaning)}`
-      : ""
-  }`;
+      ? `. Bên cạnh đó, lá bài bổ trợ ${secondTitle} bổ sung thêm dữ kiện quan trọng: ${lowerFirstForClause(secondMeaning)}.`
+      : "."
+  }
 
-  const part2 = `Từ những dữ kiện thực tế đó, hướng xử lý tối ưu dành cho bạn lúc này được đúc kết rất rõ ràng. Hãy ưu tiên áp dụng ngay thông điệp hành động từ lá ${targetTitle}: ${lowerFirstForClause(targetAdvice)}${
-    secondCard && secondCard.name !== targetCard.name
-      ? ` Kết hợp song song với nguyên tắc của lá ${secondTitle}: ${lowerFirstForClause(secondAdvice)}`
-      : ""
-  } Việc bám sát từng bước thực tế và đánh giá dựa trên kết quả cụ thể sẽ giúp bạn làm chủ hoàn toàn tình huống này.`;
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+Sự tương tác giữa ${targetTitle} và ${secondTitle} phản chiếu bản chất đa diện của câu chuyện: một bên là nguyên nhân cốt lõi đang thôi thúc bên trong, một bên là điều kiện môi trường thực tế đang diễn ra bên ngoài. Bạn cần nhìn nhận cả hai yếu tố này như hai mặt của cùng một đồng xu thay vì tách rời chúng.
 
-  return `${part1}\n\n${part2}`;
+### ✦ HƯỚNG XỬ LÝ TỐI ƯU
+- **Việc cần làm ngay (Do):** Ưu tiên áp dụng thông điệp hành động từ lá ${targetTitle}: ${lowerFirstForClause(targetAdvice)}
+- **Nguyên tắc phối hợp:** Kết hợp song song với lời khuyên của lá ${secondTitle}: ${lowerFirstForClause(secondAdvice)}, bám sát dữ kiện thực tế để đưa ra quyết định dứt khoát.`;
 }
 
 export function buildTarotUserPrompt(params: {
@@ -799,6 +971,8 @@ export function buildTarotUserPrompt(params: {
       : question;
   const domainKey = getDomainKeyFromTopic(`${topic} ${question} ${latestChatQuestion}`);
 
+  const dynamics = analyzeSpreadDynamics(normalizedCards);
+
   const cardsSummary = normalizedCards
     .map((c, idx) => {
       const deep = getCardDeepMeaning(c.name);
@@ -813,11 +987,22 @@ export function buildTarotUserPrompt(params: {
 
       return `${idx + 1}. Vị trí [${c.slotLabel}]: Lá ${cleanTitle} - Chiều: ${
         c.isReversed ? "NGƯỢC (Reversed)" : "XUÔI (Upright)"
-      } | Nguyên tố: ${c.element} | Bản chất: ${cleanEssence} | Biểu tượng hình vẽ: ${cleanSymbols}${
-        cleanPerson ? ` | Hình mẫu nhân vật: ${cleanPerson}` : ""
+      } | Nguyên tố: ${c.element} | Bản chất: ${cleanEssence} | Biểu tượng: ${cleanSymbols}${
+        cleanPerson ? ` | Nhân vật: ${cleanPerson}` : ""
       } | Luận giải theo chủ đề (${domainKey}): ${domainSpecific} | Lời khuyên gốc: ${cleanAdvice}`;
     })
     .join("\n");
+
+  const telemetryBrief = `TỔNG QUAN NĂNG LƯỢNG TRẢI BÀI (${dynamics.total} lá):
+- Tỷ lệ Ẩn chính / Ẩn phụ: ${dynamics.majorCount} Ẩn chính / ${dynamics.minorCount} Ẩn phụ
+- Tỷ lệ Chiều bài: ${dynamics.uprightCount} Xuôi / ${dynamics.revCount} Ngược (Cục diện: ${dynamics.isChallenging ? "Nhiều thách thức/điểm nghẽn" : "Thuận lợi/sáng sủa"})
+- Phân bổ nguyên tố: Lửa=${dynamics.elements.fire}, Nước=${dynamics.elements.water}, Khí=${dynamics.elements.air}, Đất=${dynamics.elements.earth}
+- Nguyên tố chủ đạo: ${dynamics.dominantElement} | Nguyên tố khuyết: ${dynamics.missingElements.join(", ") || "Không khuyết"}
+- Lá bài Chìa Khóa bản lề: ${getCleanVietnameseCardTitle(dynamics.catalystCard)}${
+    dynamics.challengeCard
+      ? ` | Lá bài Nút thắt/Thách thức lớn nhất: ${getCleanVietnameseCardTitle(dynamics.challengeCard)}`
+      : ""
+  }`;
 
   if (mode === "chat" && messages.length > 0) {
     const detectedIntent = detectChatQuestionIntent(
@@ -829,7 +1014,9 @@ export function buildTarotUserPrompt(params: {
 - Chủ đề: ${topic}
 - Kiểu trải bài: ${spreadName}
 - Câu hỏi gốc ban đầu: "${question || "Trải bài định hướng"}"
-- Danh sách lá bài trên bàn:
+${telemetryBrief}
+
+DANH SÁCH CÁC LÁ BÀI TRÊN BÀN:
 ${cardsSummary}
 
 LỊCH SỬ HỘI THOẠI (Tối đa 10 lượt gần nhất):
@@ -841,32 +1028,49 @@ ${messages
 CÂU HỎI MỚI NHẤT CẦN TRẢ LỜI TRỰC DIỆN: "${latestChatQuestion}"
 PHÂN LOẠI TRỌNG TÂM CÂU HỎI (INTENT): ${detectedIntent}
 
-YÊU CẦU BẮT BUỘC CHO CHẾ ĐỘ HỎI ĐÁP (CHAT):
-- Sử dụng tri thức chuẩn Tarot kết hợp dữ liệu các lá bài trên bàn để giải đáp TRỰC DIỆN câu hỏi mới nhất "${latestChatQuestion}".
-- TUYỆT ĐỐI KHÔNG lặp lại bản phân tích tổng quát của toàn bộ trải bài.
-- Tùy theo loại câu hỏi mới nhất:
-  + Nếu hỏi về hành động cụ thể / 7 ngày tới / lời khuyên của 1 lá bài: Phân tích đúng lá bài được nhắc tới và chia lộ trình hành động rõ ràng cho Giai đoạn Ngày 1-2 (Nhận diện & Dọn dẹp), Ngày 3-5 (Hành động trọng tâm) và Ngày 6-7 (Củng cố & Đánh giá).
-  + Nếu hỏi về cách hóa giải thách thức từ lá bài ngược: Chỉ đích danh từng lá bài ngược trên bàn, phân tích nguyên nhân nghẽn năng lượng và đưa ra cách hóa giải thực tế cho từng lá.
-  + Nếu hỏi về sự kết nối giữa 2 lá bài & bước ngoặt sắp tới: Phân tích sự dịch chuyển năng lượng nguyên tố, cấp độ số học và ý nghĩa từ lá trước sang lá sau để chỉ rõ bước ngoặt và cách đón đầu.
-  + Nếu hỏi về tâm tư / suy nghĩ / tình cảm của một người: Khai thác chiều sâu tâm lý để giải mã thái độ thực sự và lời khuyên ứng xử.
-  + Chỉ mở đầu bằng Có / Không / Cần điều kiện khi câu hỏi thực sự là câu hỏi Có/Không.
-- Chia câu trả lời thành đúng 2 đoạn văn xuôi tách nhau bằng 1 dòng trống (\\n\\n).
-- Khi gọi tên lá bài, dùng định dạng tự nhiên như "Four of Wands (Bốn Gậy)", tuyệt đối không lặp "Four of Wands (Four of Wands)".
-- TUYỆT ĐỐI CẤM viết cử chỉ nhập vai trong ngoặc đơn như "(gõ nhẹ...)", "(khẽ chạm...)", "(ánh mắt...)" và cấm dùng các từ trong danh sách cấm.`;
+YÊU CẦU BẮT BUỘC CHO HỎI ĐÁP CHUYÊN SÂU (CHAT):
+1. Trả lời TRỰC DIỆN, ĐANH THÉP vào đúng câu hỏi mới nhất "${latestChatQuestion}". Tuyệt đối không vòng vo, không lặp lại bản tóm tắt trải bài.
+2. Kết nối câu trả lời với tổng thể năng lượng các lá bài trên bàn (chuỗi nhân quả, đòn bẩy và điểm nghẽn).
+3. Bắt buộc trình bày theo cấu trúc phân đoạn rõ ràng:
+### ✦ TRỌNG TÂM GIẢI ĐÁP
+[Trả lời trực diện, xác đáng vào câu hỏi]
+
+### ✦ PHÂN TÍCH KẾT NỐI VỚI BỘ BÀI
+[Chỉ ra câu hỏi này liên kết thế nào với bức tranh chung của các lá bài trên bàn]
+
+### ✦ CHIẾN LƯỢC THỰC THI & LƯU Ý
+- **Việc cần làm ngay (Do):** [Hành động cụ thể, khả thi]
+- **Điều tuyệt đối nên tránh (Don't):** [Cạm bẫy tâm lý, sai lầm cần loại bỏ]
+
+4. Tuyệt đối CẤM cử chỉ nhập vai trong ngoặc đơn "(gõ nhẹ...)" và cấm dùng các từ trong blacklist.`;
   }
 
   return `THÔNG TIN TRẢI BÀI & CÂU HỎI CỦA NGƯỜI XEM:
 - Chủ đề: ${topic}
 - Kiểu trải bài: ${spreadName}
 - Câu hỏi của người xem: "${question || "Xin thông điệp định hướng thực tế từ các lá bài này"}"
-- Danh sách các lá bài đã rút:
+${telemetryBrief}
+
+DANH SÁCH CÁC LÁ BÀI ĐÃ RÚT:
 ${cardsSummary}
 
-YÊU CẦU LUẬN GIẢI TỔNG HỢP:
-- Sử dụng tri thức chuẩn Tarot kết hợp chặt chẽ với dữ liệu trải bài trên và câu hỏi thực tế của người xem.
-- Chia câu trả lời làm 2 đoạn văn xuôi rõ rệt tách nhau bằng 1 dòng trống (\\n\\n):
-  + Đoạn 1 (Phán quyết & Phân tích trực diện): Trả lời thẳng vào trọng tâm câu hỏi ngay câu đầu tiên, phân tích sự tương tác giữa các lá bài với hình ảnh biểu tượng thực tế.
-  + Đoạn 2 (Định hướng hành động thực tế): Đưa ra hướng hành động cụ thể, khả thi và dứt khoát.
-- Khi gọi tên lá bài, dùng định dạng tự nhiên như "Four of Wands (Bốn Gậy)" hoặc "The Magician (Nhà Ảo Thuật)", không lặp tên tiếng Anh hai lần.
-- TUYỆT ĐỐI CẤM viết cử chỉ nhập vai trong ngoặc đơn như "(gõ nhẹ...)", "(khẽ chạm...)", "(ánh mắt...)". Không dùng bullet points, không giật tít Markdown và không dùng các cụm từ trong danh sách cấm.`;
+YÊU CẦU BẮT BUỘC CHO PHÂN TÍCH CHUYÊN SÂU TOÀN BỘ TRẢI BÀI (SYNTHESIS):
+1. NGUYÊN TẮC CỐT LÕI: Phải ĐAN DỆT và XÂU CHUỖI các lá bài thành một BỨC TRANH TOÀN CẢNH và CHUỖI NHÂN QUẢ LIÊN TỤC. Tuyệt đối KHÔNG phân tích rời rạc từng lá kiểu "Lá 1 là..., Lá 2 là..." vì giao diện đã có bảng chi tiết từng lá ở trên rồi.
+2. Hãy chỉ ra sự va chạm giữa các nguyên tố (Lửa, Nước, Khí, Đất), sự áp đảo của Ẩn chính/Ẩn phụ, đâu là lá bài "nút thắt kìm hãm" và đâu là lá bài "chìa khóa bản lề".
+3. Bắt buộc trình bày chuẩn xác theo 4 phần với tiêu đề Markdown sau để giao diện hiển thị thành các Card Cyber trực quan:
+
+### ✦ THÔNG ĐIỆP CỐT LÕI & PHÁN QUYẾT
+[1-2 câu trả lời thẳng thắn vào trọng tâm câu hỏi của người xem, phán quyết rõ cục diện: Thuận lợi, Cảnh báo bước ngoặt hay Cần điều kiện. Đúc kết bản chất tối thượng của toàn bộ trải bài]
+
+### ✦ BỨC TRANH TOÀN CẢNH & SỢI DÂY LIÊN KẾT BỘ BÀI
+[Phân tích cách các lá bài va chạm, tương tác, bổ trợ hoặc đối nghịch nhau để tạo thành một câu chuyện hoàn chỉnh. Phân tích dòng chảy từ Nguyên nhân gốc rễ (lá đầu) -> Biến chuyển / Thử thách (lá giữa / lá ngược) -> Kết quả kết tinh (lá kết). Chỉ ra sự tương tác giữa các nguyên tố và cấp độ Ẩn chính/Ẩn phụ]
+
+### ✦ CHIẾN LƯỢC HÀNH ĐỘNG DỨT KHOÁT
+- **Việc cần làm ngay (Do):** [Hành động cụ thể, thực tế và khả thi trong tầm tay của người hỏi]
+- **Điều tuyệt đối nên tránh (Don't):** [Những cạm bẫy tâm lý, sai lầm hành vi hoặc sự chủ quan do các lá bài (đặc biệt là lá ngược / thử thách) cảnh báo]
+
+### ✦ LỜI ĐÚC KẾT THỨC TỈNH
+[1 câu châm ngôn hoặc đúc kết sắc sảo giúp người xem bừng tỉnh nhận thức và tự tin làm chủ số phận của mình]
+
+4. Tuyệt đối CẤM cử chỉ nhập vai trong ngoặc đơn "(gõ nhẹ...)" và cấm dùng các từ trong danh sách cấm.`;
 }
