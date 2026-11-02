@@ -13,8 +13,64 @@ import {
 import { cn } from "@/lib/utils";
 import type { DrawnSlotCard } from "@/components/ui/holo-tarot-card";
 import type { SpreadConfig } from "@/data/tarot-deck";
-import { TarotTwoBlockReading } from "@/components/ui/streaming-oracle-text";
 import { executeTarotOracleClient } from "@/lib/geminiDirectClient";
+
+function renderInlineMarkdown(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-cyan-300">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
+function ChatMarkdownText({ content }: { content: string }) {
+  // Loại bỏ các tiêu đề ### cũ nếu có để giữ giọng văn tự nhiên
+  const cleaned = content.replace(/^###\s*[✦•\-*]?\s*/gm, "");
+  const paragraphs = cleaned.split(/\n\s*\n/);
+
+  return (
+    <div className="space-y-2.5 font-sans text-sm sm:text-base leading-relaxed text-slate-200">
+      {paragraphs.map((para, pIdx) => {
+        const trimmed = para.trim();
+        if (!trimmed) return null;
+
+        const lines = trimmed.split("\n");
+        const isList = lines.every((l) => {
+          const t = l.trim();
+          return t.startsWith("- ") || t.startsWith("* ") || t.startsWith("• ");
+        });
+
+        if (isList) {
+          return (
+            <ul key={pIdx} className="space-y-1.5 pl-1 my-1">
+              {lines.map((line, lIdx) => {
+                const itemText = line.trim().replace(/^[-*•]\s*/, "");
+                return (
+                  <li key={lIdx} className="flex items-start gap-2">
+                    <span className="text-cyan-400 select-none mt-1 shrink-0 text-xs">◆</span>
+                    <span className="flex-1">{renderInlineMarkdown(itemText)}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          );
+        }
+
+        return (
+          <p key={pIdx} className="leading-relaxed">
+            {renderInlineMarkdown(trimmed)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
 
 export interface ChatMessage {
   id: string;
@@ -221,7 +277,7 @@ export function OracleChatTerminal({
                   <span>{msg.timestamp}</span>
                 </div>
                 {msg.role === "assistant" ? (
-                  <TarotTwoBlockReading text={msg.content} compact />
+                  <ChatMarkdownText content={msg.content} />
                 ) : (
                   <div className="whitespace-pre-line font-sans text-sm sm:text-base leading-relaxed">
                     {msg.content}
