@@ -422,26 +422,41 @@ export function CyberTarotExperience() {
       setDrawingCardId(deckItem.card.id);
 
       const nextSlotIndex = drawnCards.length;
+      const willFlipImmediately = flipImmediately;
+
       const newDrawn: DrawnSlotCard = {
         slotIndex: nextSlotIndex,
         card: deckItem.card,
         isReversed: deckItem.isReversed,
-        isFlipped: flipImmediately,
+        isFlipped: false, // Tiếp đất úp bài trước để chuyển động vật lý mượt mà
       };
 
-      // Graceful spring float into slot
-      const t = setTimeout(() => {
+      // Giai đoạn 1: Lá bài nhấc bổng phát sáng trong quạt bài (320ms)
+      const t1 = setTimeout(() => {
+        // Giai đoạn 2: Tiếp đất nhẹ nhàng vào ô trải bài
         setDrawnCards((prev) => [...prev, newDrawn]);
         setDrawingCardId(null);
-      }, 180);
-      shuffleTimersRef.current.push(t);
+
+        // Giai đoạn 3: Lật bài 3D mượt mà sau khi đã đáp xuống vị trí
+        if (willFlipImmediately) {
+          const t2 = setTimeout(() => {
+            setDrawnCards((prev) =>
+              prev.map((item, idx) =>
+                idx === nextSlotIndex ? { ...item, isFlipped: true } : item
+              )
+            );
+          }, 240);
+          shuffleTimersRef.current.push(t2);
+        }
+      }, 320);
+      shuffleTimersRef.current.push(t1);
     },
     [drawnCards, activeSpread.cardCount, drawingCardId, flipImmediately]
   );
 
   const handleAutoDrawRemaining = () => {
     const remainingNeeded = activeSpread.cardCount - drawnCards.length;
-    if (remainingNeeded <= 0) return;
+    if (remainingNeeded <= 0 || drawingCardId !== null) return;
 
     const available = deckPool.filter(
       (item) => !drawnCards.some((d) => d.card.id === item.card.id)
@@ -449,16 +464,37 @@ export function CyberTarotExperience() {
     const shuffledAvailable = cryptoShuffle(available);
     const picked = shuffledAvailable.slice(0, remainingNeeded);
 
-    const newEntries: DrawnSlotCard[] = picked.map((item, idx) => ({
-      slotIndex: drawnCards.length + idx,
-      card: item.card,
-      isReversed: item.isReversed,
-      isFlipped: flipImmediately,
-    }));
+    // Chia từng lá theo nhịp nhàng (stagger) thay vì dồn dập cùng 1 lúc để tránh giật lag
+    picked.forEach((item, i) => {
+      const dealTimer = setTimeout(() => {
+        const slotIdx = drawnCards.length + i;
+        const newDrawn: DrawnSlotCard = {
+          slotIndex: slotIdx,
+          card: item.card,
+          isReversed: item.isReversed,
+          isFlipped: false,
+        };
+        setDrawnCards((prev) => [...prev, newDrawn]);
 
-    setDrawnCards((prev) => [...prev, ...newEntries]);
-    setCutNotice(`Đã rút ngẫu nhiên ${remainingNeeded} lá bài!`);
-    const t = setTimeout(() => setCutNotice(null), 2200);
+        if (flipImmediately) {
+          const flipTimer = setTimeout(() => {
+            setDrawnCards((prev) =>
+              prev.map((c, idx) =>
+                idx === slotIdx ? { ...c, isFlipped: true } : c
+              )
+            );
+          }, 260);
+          shuffleTimersRef.current.push(flipTimer);
+        }
+      }, i * 340);
+      shuffleTimersRef.current.push(dealTimer);
+    });
+
+    setCutNotice(`Đang chia nhịp nhàng ${remainingNeeded} lá bài...`);
+    const t = setTimeout(
+      () => setCutNotice(null),
+      remainingNeeded * 340 + 1000
+    );
     shuffleTimersRef.current.push(t);
   };
 
@@ -803,10 +839,13 @@ export function CyberTarotExperience() {
                     >
                       {drawn ? (
                         <motion.div
-                          initial={{ opacity: 0, scale: 0.84, y: 32 }}
+                          initial={{ opacity: 0, scale: 0.92, y: -44 }}
                           animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                          className="flex flex-col items-center"
+                          transition={{
+                            duration: 0.42,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                          className="flex flex-col items-center transform-gpu"
                         >
                           <HoloTarotCard
                             card={drawn.card}

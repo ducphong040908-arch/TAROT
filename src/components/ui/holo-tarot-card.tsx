@@ -285,22 +285,34 @@ export function HoloTarotCard({
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const rafRef = React.useRef<number | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (rafRef.current !== null) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-    const rotateY = (px - 0.5) * 18;
-    const rotateX = (0.5 - py) * 18;
-    setTilt({
-      rotateX,
-      rotateY,
-      glareX: Math.round(px * 100),
-      glareY: Math.round(py * 100),
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    rafRef.current = requestAnimationFrame(() => {
+      const px = (clientX - rect.left) / rect.width;
+      const py = (clientY - rect.top) / rect.height;
+      const rotateY = (px - 0.5) * 14;
+      const rotateX = (0.5 - py) * 14;
+      setTilt({
+        rotateX,
+        rotateY,
+        glareX: Math.round(px * 100),
+        glareY: Math.round(py * 100),
+      });
+      rafRef.current = null;
     });
   };
 
   const handleMouseLeave = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     setIsHovered(false);
     setTilt({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50 });
   };
@@ -339,7 +351,7 @@ export function HoloTarotCard({
           }
         }}
         className={cn(
-          "relative cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl",
+          "relative cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-2xl transform-gpu",
           dimensions,
           className
         )}
@@ -350,23 +362,26 @@ export function HoloTarotCard({
         onClick={onClick}
       >
         <motion.div
-          className="relative h-full w-full rounded-2xl"
-          style={{ transformStyle: "preserve-3d" }}
+          className="relative h-full w-full rounded-2xl transform-gpu"
+          style={{ transformStyle: "preserve-3d", willChange: "transform" }}
           animate={{
-            rotateY: (isFlipped ? 180 : 0) + tilt.rotateY,
+            rotateY: (isFlipped ? 180 : 0) + (isFlipped ? -tilt.rotateY : tilt.rotateY),
             rotateX: tilt.rotateX,
             scale: isHovered ? 1.03 : 1,
           }}
           transition={{
-            rotateY: { type: "spring", stiffness: 220, damping: 22 },
-            rotateX: { type: "spring", stiffness: 300, damping: 25 },
+            rotateY: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            rotateX: { type: "spring", stiffness: 260, damping: 24 },
             scale: { duration: 0.2 },
           }}
         >
           {/* ================= CARD BACK (FACE DOWN) ================= */}
           <div
-            className="absolute inset-0 h-full w-full rounded-2xl border border-amber-500/40 bg-[#070812] shadow-[0_0_30px_rgba(245,158,11,0.18)] overflow-hidden"
-            style={{ backfaceVisibility: "hidden" }}
+            className="absolute inset-0 h-full w-full rounded-2xl border border-amber-500/40 bg-[#070812] shadow-[0_0_30px_rgba(245,158,11,0.18)] overflow-hidden transform-gpu"
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
           >
             <CyberCardBackSVG />
             {/* Click-to-flip Prompt Badge */}
@@ -380,13 +395,14 @@ export function HoloTarotCard({
           {/* ================= CARD FRONT (FACE UP) ================= */}
           <div
             className={cn(
-              "absolute inset-0 h-full w-full rounded-2xl border p-3 flex flex-col justify-between overflow-hidden bg-[#080914]",
+              "absolute inset-0 h-full w-full rounded-2xl border p-3 flex flex-col justify-between overflow-hidden bg-[#080914] transform-gpu",
               isReversed
                 ? "border-violet-500/70 shadow-[0_0_35px_rgba(139,92,246,0.28)]"
                 : "border-amber-400/70 shadow-[0_0_35px_rgba(245,158,11,0.28)]"
             )}
             style={{
               backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
             }}
           >

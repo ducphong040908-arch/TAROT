@@ -10,9 +10,9 @@ export const WAVE_RADIUS_CARDS = 6;
 export const WAVE_MAX_LIFT_PX = 44;
 export const WAVE_SPRING_CONFIG = {
   type: "spring" as const,
-  stiffness: 420,
-  damping: 28,
-  mass: 0.6,
+  stiffness: 280,
+  damping: 26,
+  mass: 0.7,
 };
 
 export interface ShuffledDeckItem {
@@ -191,12 +191,12 @@ export const WaveDeckFan = React.memo(function WaveDeckFan({
 
             // Calculate multi-stage physical shuffle & wave transforms
             let animateX = waveSpreadX;
-            let animateY = isDrawingThis ? -72 : arcY - waveLift;
+            let animateY = isDrawingThis ? -84 : arcY - waveLift;
             let animateRotate = isDrawingThis
               ? 0
               : angle * (1 - waveFactor * 0.85);
-            let animateScale = isDrawingThis ? 1.25 : 1 + waveFactor * 0.2;
-            let animateOpacity = isDrawingThis ? 0.4 : 1;
+            let animateScale = isDrawingThis ? 1.2 : 1 + waveFactor * 0.18;
+            let animateOpacity = 1;
 
             if (isShuffling) {
               if (shufflePhase === "gather") {
@@ -237,6 +237,10 @@ export const WaveDeckFan = React.memo(function WaveDeckFan({
                     ? 10 + (idx % 20)
                     : idx,
                   touchAction: "manipulation",
+                  willChange:
+                    isDrawingThis || isHovered || waveFactor > 0
+                      ? "transform"
+                      : "auto",
                 }}
                 animate={{
                   x: animateX,
@@ -246,7 +250,13 @@ export const WaveDeckFan = React.memo(function WaveDeckFan({
                   opacity: animateOpacity,
                 }}
                 transition={
-                  isShuffling
+                  isDrawingThis
+                    ? {
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 22,
+                      }
+                    : isShuffling
                     ? {
                         type: "spring",
                         stiffness: 240,
@@ -256,7 +266,7 @@ export const WaveDeckFan = React.memo(function WaveDeckFan({
                     : WAVE_SPRING_CONFIG
                 }
                 className={cn(
-                  "relative h-36 w-24 shrink-0 rounded-xl transition-shadow focus:outline-none cursor-pointer",
+                  "relative h-36 w-24 shrink-0 rounded-xl transition-shadow focus:outline-none cursor-pointer transform-gpu",
                   isDrawingThis
                     ? "shadow-[0_0_35px_rgba(245,158,11,1)] ring-2 ring-amber-300 brightness-125"
                     : isHovered
